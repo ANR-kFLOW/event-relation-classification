@@ -9,7 +9,7 @@ train=pd.read_csv('joined_train.csv')
 val=pd.read_csv('joined_val.csv')
 data = pd.concat([train, val], axis=0)
 
-data['tag'] = data['tag'].str.replace('0', 'O')
+data['tag'] = data['tag'].str.replace('0', 'N')
 X_train, X_val, y_train, y_val = train_test_split(data, data['label'], test_size=0.2, random_state=0, stratify=data['label'])
 #
 X_train_token = X_train['text']
@@ -62,3 +62,10 @@ y_val_NER = pad_sequences(y_val_NER, maxlen=max_len, padding='post', value=9)
 print(X_val_token.shape)
 
 print(data['label'].value_counts())
+
+print("X_train_token:", X_train_token)
+print("y_train_label_NER:", y_train_label_NER)
+print("X_val_token:", X_val_token)
+print("y_val_NER:", y_val_NER)
+print("label_train:", label_train)
+print("label_val:", label_val)
