@@ -8,13 +8,15 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import BertForTokenClassification
 from transformers import BertTokenizerFast
-
+from nltk.tokenize import word_tokenize
+import itertools
+label_all_tokens = False
 # read data, this setting is for training and testing on original data, change the data file to
 # joined_train and joined_val to test on the new dataset
-df_train = pd.read_csv('original_train.csv')
-df_val = pd.read_csv('original_val.csv')
+df_train = pd.read_csv('joined_train.csv')
+df_val = pd.read_csv('joined_val.csv')
 df_test = pd.read_csv('original_test.csv')
-labels = [i.split() for i in df_train['tag'].values.tolist()]
+labels = [word_tokenize(i) for i in df_train['tag'].values.tolist()]
 
 # Check how many labels are there in the dataset
 unique_labels = set()
@@ -63,12 +65,14 @@ def align_label(texts, labels):
 class DataSequence(torch.utils.data.Dataset):
 
     def __init__(self, df):
-        lb = [i.split() for i in df['tag'].values.tolist()]
+        lb = [word_tokenize(i) for i in df['tag'].values.tolist()]
         txt = df['text'].values.tolist()
         self.texts = [tokenizer(str(i),
                                 padding='max_length', max_length=512, truncation=True, return_tensors="pt") for i in
                       txt]
         self.labels = [align_label(i, j) for i, j in zip(txt, lb)]
+
+
 
     def __len__(self):
         return len(self.labels)

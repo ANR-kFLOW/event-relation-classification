@@ -28,14 +28,19 @@ from bert import bert_tokenization
 import os
 import tensorflow_addons as tfa
 
-os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+# os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 BertTokenizer = bert_tokenization.FullTokenizer
 
 # from bert.tokenization import FullTokenizer
 import tensorflow_text as text
 
-
+from tensorflow.python.client import device_lib
+print(device_lib.list_local_devices())
+# Set the device to use for computation
+physical_devices=tf.config.list_physical_devices('GPU')
+print('physical_devices',physical_devices)
+tf.config.experimental.set_visible_devices(physical_devices, 'GPU')
 
 
 bert_preprocess = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
@@ -180,7 +185,7 @@ loss_obj_cat = tf.keras.losses.SparseCategoricalCrossentropy()
 
 
 
-optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
+optimizer = tf.keras.optimizers.Adam()
 
 # loss_reg = tf.keras.metrics.Mean(name='regression loss')
 # loss_cat = tf.keras.metrics.Mean(name='categorical loss')
@@ -206,7 +211,7 @@ for epoch in range(50):
         progbar.update(i)
         with tf.GradientTape() as tape:
             # input_crf,input_rel=inputsi
-            print('I am here _')
+
             crf_out, pred_out = BSA([X_train_token, y_train_label_NER])
             # print('pred out is   ',pred_out)
             # pred_out=pred_out[0, :]
@@ -229,11 +234,11 @@ for epoch in range(50):
         optimizer.apply_gradients(zip(gradients, BSA.trainable_variables))
         loss_crf.update_state(crf_loss)
         loss_cat.update_state(pred_loss)
-        train_acc_metric_rel.update_state(label_train, pred_out)
-        crf_train_acc_metric.update_state(label_train_NER, viterbi_sequence,
-                                          tf.sequence_mask(sequence_length, label_train_NER.shape[1]))
-        # Precision.update_state(labels, y_pred)
-        metric.update_state(label_train, pred_out)
+        # train_acc_metric_rel.update_state(label_train, pred_out)
+        # crf_train_acc_metric.update_state(label_train_NER, viterbi_sequence,
+        #                                   tf.sequence_mask(sequence_length, label_train_NER.shape[1]))
+        # # Precision.update_state(labels, y_pred)
+        # metric.update_state(label_train, pred_out)
 
         # for i,(X_train_token, y_train_label_NER, label_train_NER,label_train) in enumerate(ds):
 
@@ -241,43 +246,47 @@ for epoch in range(50):
 
         print('done all the loop')
 
-    recal = {}
-    prec = {}
-    m = metric.result()
-    recall = np.diag(m) / np.sum(m, axis=1)
-    precision = np.diag(m) / np.sum(m, axis=0)
+    # recal = {}
+    # prec = {}
+    # m = metric.result()
+    # recall = np.diag(m) / np.sum(m, axis=1)
+    # precision = np.diag(m) / np.sum(m, axis=0)
     print('epoch, {}'.format(epoch),
           'loss_type, {}'.format(loss_cat.result()),
-          'crf_loss, {}'.format(loss_crf.result()),
-          'train_acc_rel, {}'.format(train_acc_metric_rel.result()),
-          'crf train accurcy {}'.format(crf_train_acc_metric.result()),
-          'metric relation {}'.format(metric.result()),
-          'recall {}'.format(np.diag(m) / np.sum(m, axis=1)),
-          'precision{}'.format(np.diag(m) / np.sum(m, axis=0))
+          'crf_loss, {}'.format(loss_crf.result())
+          # 'train_acc_rel, {}'.format(train_acc_metric_rel.result()),
+          # 'crf train accurcy {}'.format(crf_train_acc_metric.result()),
+          # 'metric relation {}'.format(metric.result()),
+          # 'recall {}'.format(np.diag(m) / np.sum(m, axis=1)),
+          # 'precision{}'.format(np.diag(m) / np.sum(m, axis=0))
           # 'crf per class {} '.format(per_class_accuracy_NER.result()),
           # 'label per class {}'.format((per_class_accuracy_rel.result()))
 
           # , 'crf_accuracy, {}'.format(train_metric_crf.result())
           )
-    for idx, item in enumerate(recall):
-        recal[le.inverse_transform([idx])[0]] = item
-    for idx, item in enumerate(precision):
-        prec[le.inverse_transform([idx])[0]] = item
+    # for idx, item in enumerate(recall):
+    #     recal[le.inverse_transform([idx])[0]] = item
+    # for idx, item in enumerate(precision):
+    #     prec[le.inverse_transform([idx])[0]] = item
 
-    loss_crf.reset_states()
-    loss_cat.reset_states()
-    train_acc_metric_rel.reset_states()
-    crf_train_acc_metric.reset_states()
-    metric.reset_states()
+    # loss_crf.reset_states()
+    # loss_cat.reset_states()
+    # train_acc_metric_rel.reset_states()
+    # crf_train_acc_metric.reset_states()
+    # metric.reset_states()
     # per_class_accuracy_NER.reset_states()
     # per_class_accuracy_rel.reset_states()
-    print(recal)
-    print(prec)
+    # print(recal)
+    # print(prec)
 
     logits_crf = []
     labels_crf = []
     logits_re = []
     labels_re = []
+    logits_c=[]
+    gr_truth_crf=[]
+
+
 
     for i, (X_val_token, label_val_NER, label_val_NER, label_val) in enumerate(ds_val):
         progbar.update(i)
@@ -285,9 +294,9 @@ for epoch in range(50):
         viterbi_sequence, potentials, sequence_length, chain_kernel = crf_out
         logits_re.append(np.argmax(pred_out, axis=1).flatten())
         labels_re.append(label_val)
-        crf_layer = BSA.get_layer('crf_layer')
-        y_pred = crf_out[0]
-        sequence_lengths = crf_out[2]
+        # crf_layer = BSA.get_layer('crf_layer')
+        # y_pred = crf_out[0]
+        # sequence_lengths = crf_out[2]
         # viterbi_sequence, viterbi_score = crf_layer.viterbi_decode(y_pred, sequence_lengths)
         # print('viterbi_sequence',viterbi_sequence)
         for i in range(viterbi_sequence.shape[0]):
@@ -298,8 +307,8 @@ for epoch in range(50):
             # print('len label_clean', len(label_clean))
             # print('len logits',len(logits_clean))
             # pre_report = logits_clean.detach().cpu().numpy()
-            # print('----------------')
-            # print(logits_clean)
+            print('------logits_clean-------')
+            print(logits_clean)
             # print('----------------')
             # print(label_clean)
             # print('-------------pre------------')
@@ -307,23 +316,34 @@ for epoch in range(50):
             # predictions = logits_clean.argmax(dim=1)
 
             logits_crf.append(logits_clean)
+            # print('----logits crf-----')
             # print(logits_crf)
 
             labels_crf.append(label_clean)
-            # print('------------')
+            # print('----lbl crf-----')
             # print(labels_crf)
+            logits_c.append(list(itertools.chain(*logits_crf)))
 
-        prediction_rp = list(itertools.chain(*logits_crf))
-        gt_re = list(itertools.chain(*labels_crf))
-        pred_re = list(itertools.chain(*logits_re))
-        lbls_re = list(itertools.chain(*labels_re))
+
+    prediction_rp = list(itertools.chain(*logits_c))
+    gt_crf = list(itertools.chain(*labels_crf))
+    print('pprediction_rp')
+    print(logits_c)
+    result_tensor = tf.concat(logits_crf, axis=0)
+
+    # Convert the result tensor to a numpy array to get a Python list
+    result_list = result_tensor.numpy().tolist()
+    print('result tensor')
+    print(result_list)
+    pred_re = list(itertools.chain(*logits_re))
+    lbls_re = list(itertools.chain(*labels_re))
         # print('prediction itterated')
         # print(gt_re)
-        report_crf = classification_report(gt_re, prediction_rp)
+    report_crf = classification_report(gt_crf, result_list)
 
-        print(report_crf)
-        report_re = classification_report(lbls_re, pred_re)
-        print(report_re)
+    print(report_crf)
+    report_re = classification_report(lbls_re, pred_re)
+    print(report_re)
 
         # Update val metrics
 #         val_acc_metric_rel.update_state(label_val, pred_out)
@@ -356,4 +376,4 @@ for epoch in range(50):
 #     print(recal_val)
 
 
-# BSA.save('model_bert_Pos_tag')
+BSA.save('original_crf')
