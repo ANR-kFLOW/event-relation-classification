@@ -1,7 +1,7 @@
 import pandas as pd
 
 enables = pd.read_csv(
-    '/Users/youssrarebboud/PycharmProjects/GPT3DataAugmentation/generated_dataset/intention_clean.csv')
+    '/Users/youssrarebboud/Desktop/cleaned_left_intention.csv')
 
 # enables=enables.drop_duplicates()
 # print(enables)
@@ -57,9 +57,10 @@ for idx, row in enables.iloc[:601].iterrows():
         correct_ones.append([row['sentence'], correct1, correct2])
         df = pd.DataFrame(correct_ones)
         df.columns = ['sentence', 'trigger1', 'trigger2']
-        # df.to_csv('/Users/youssrarebboud/PycharmProjects/GPT3DataAugmentation/generated_dataset/intention_manually_checked_dataset.csv')
+        df.to_csv('/Users/youssrarebboud/Desktop/enable_students.csv')
         #
 
 print('correct_Sentenecs: ', correct_Sentenecs)
 print('correct_trigger1', correct_trigger1)
 print('correct_trigger2', correct_trigger2)
+

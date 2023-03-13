@@ -11,13 +11,21 @@ from transformers import BertTokenizerFast
 from nltk.tokenize import word_tokenize
 import itertools
 import torch.nn.functional as F
+import os
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 label_all_tokens = False
 # read data, this setting is for training and testing on original data, change the data file to
 # joined_train and joined_val to test on the new dataset
-df_train = pd.read_csv('joined_train.csv')
-df_val = pd.read_csv('joined_val.csv')
-df_test = pd.read_csv('original_test.csv')
+path_to_data = os.path.join('..', 'data')
+df_train = pd.read_csv(path_to_data+'/joined_train.csv')
+df_val = pd.read_csv(path_to_data+'/joined_val.csv')
+df_test = pd.read_csv(path_to_data+'/original_test.csv')
+df_train['tag'] = df_train['tag'].str.replace('O', '0')
+df_val['tag'] = df_val['tag'].str.replace('O', '0')
+df_test['tag'] = df_test['tag'].str.replace('O', '0')
 labels = [word_tokenize(i) for i in df_train['tag'].values.tolist()]
+
 
 # Check how many labels are there in the dataset
 unique_labels = set()
@@ -26,11 +34,20 @@ for lb in labels:
     [unique_labels.add(i) for i in lb if i not in unique_labels]
 
 print(unique_labels)
+labels_to_ids={'0': 0, 'cause': 1, 'condition': 2, 'effect': 3, 'intention': 4, 'prevention': 5}
 
 # Map each label into its id representation and vice versa
 labels_to_ids = {k: v for v, k in enumerate(sorted(unique_labels))}
 ids_to_labels = {v: k for v, k in enumerate(sorted(unique_labels))}
+
 print(labels_to_ids)
+print(ids_to_labels)
+
+
+
+
+
+
 
 
 
@@ -69,7 +86,7 @@ class DataSequence(torch.utils.data.Dataset):
 
     def __init__(self, df):
         lb = [word_tokenize(i) for i in df['tag'].values.tolist()]
-        txt = df['text'].values.tolist()
+        txt = df['sentence'].values.tolist()
         self.texts = [tokenizer(str(i),
                                 padding='max_length', max_length=512, truncation=True, return_tensors="pt") for i in
                       txt]
@@ -91,20 +108,20 @@ class DataSequence(torch.utils.data.Dataset):
         batch_labels = self.get_batch_labels(idx)
 
         return batch_data, batch_labels
-
-def masked_loss(logits, targets, ignore_index):
-    # Create a mask for the ignored classes
-
-    mask = torch.zeros_like(targets)
-    for idx in ignore_index:
-        mask = mask + (targets == idx)
-    mask = 1 - mask.byte()
-
-    # Compute the cross-entropy loss with the mask applied
-    loss = F.cross_entropy(logits, targets, reduction='none')
-    masked_loss = loss * mask.float()
-    masked_loss = masked_loss.sum() / mask.float().sum()
-    return masked_loss
+#
+# def masked_loss(logits, targets, ignore_index):
+#     # Create a mask for the ignored classes
+#
+#     mask = torch.zeros_like(targets)
+#     for idx in ignore_index:
+#         mask = mask + (targets == idx)
+#     mask = 1 - mask.byte()
+#
+#     # Compute the cross-entropy loss with the mask applied
+#     loss = F.cross_entropy(logits, targets, reduction='none')
+#     masked_loss = loss * mask.float()
+#     masked_loss = masked_loss.sum() / mask.float().sum()
+#     return masked_loss
 
 class BertModel(torch.nn.Module):
 
@@ -140,7 +157,13 @@ def train_loop(model, df_train, df_val):
 
     if use_cuda:
         model = model.cuda()
-
+    # Define the weights for each class
+    weights = torch.tensor([0.2, 1.0, 1.0, 1.0, 1.0,1.0])
+    weights = weights.to(device)
+    print('weights')
+    print(weights)
+    # Define the loss function with the weights
+    criterion = torch.nn.CrossEntropyLoss(weight=weights)
     best_acc = 0
     best_loss = 1000
 
@@ -160,17 +183,27 @@ def train_loop(model, df_train, df_val):
             input_id = train_data['input_ids'].squeeze(1).to(device)
 
             optimizer.zero_grad()
-            loss, logits = model(input_id, mask, train_label)
+            _, logits = model(input_id, mask, train_label)
             # loop over each sample in the  batch
             for i in range(logits.shape[0]):
                 logits_clean = logits[i][train_label[i] != -100]
+                print('cleaned logits')
+                print(logits_clean)
                 label_clean = train_label[i][train_label[i] != -100]
+                print('clea_label')
+                print(label_clean)
+                # Compute the loss
+                loss = criterion(logits_clean, label_clean)
+                print('loss for one example')
+                print(loss)
+
 
 
                 predictions = logits_clean.argmax(dim=1)
                 acc = (predictions == label_clean).float().mean()
                 total_acc_train += acc
                 total_loss_train += loss.item()
+
 
             loss.backward()
             optimizer.step()
@@ -188,7 +221,7 @@ def train_loop(model, df_train, df_val):
             mask = val_data['attention_mask'].squeeze(1).to(device)
             input_id = val_data['input_ids'].squeeze(1).to(device)
 
-            loss, logits = model(input_id, mask, val_label)
+            _, logits = model(input_id, mask, val_label)
             # loop over each sample of the batch and get the predicted tokens and their appropriate tags, save them in a list to be able to check the performance for each token class
 
             for i in range(logits.shape[0]):
@@ -202,6 +235,7 @@ def train_loop(model, df_train, df_val):
                 print(logits_clean)
                 print('----------------')
                 print(label_clean)
+                loss = criterion(logits_clean, label_clean)
                 print('-------------pre------------')
 
                 predictions = logits_clean.argmax(dim=1)
@@ -288,11 +322,11 @@ def evaluate(model, df_test):
     print(report)
     print(f'Test Accuracy: {total_acc_test / len(df_test): .6f}')
     print(report)
-
-
-evaluate(model, df_test)
-
-PATH = "entire_model_token_classification_original_data.pt"
+#
+#
+# evaluate(model, df_test)
+#
+PATH = "entire_model_token_classification_joined_weighted_loss.pt"
 
 # Save the model
-# torch.save(model, PATH)
+torch.save(model, PATH)

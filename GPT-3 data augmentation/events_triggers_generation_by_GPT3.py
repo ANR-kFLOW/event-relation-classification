@@ -14,7 +14,7 @@ import pandas as pd
 #       response = openai.File.create(file=f, purpose='fine-tune')
 # print(response)
 def read_file(path):
-    file = pd.read_csv(path, skiprows=393)
+    file = pd.read_csv(path)
     return file
 
 
@@ -25,12 +25,12 @@ def random_selection(file):
 
 generated_sentences = []
 
-file = read_file('/Users/youssrarebboud/Desktop/prevent_generated_gpt3_examples2_11.csv')
+file = read_file('/Users/youssrarebboud/Desktop/intention_left.csv')
 print(len(file))
 file.dropna(
     axis=0,
     how='any',
-    thresh=None,
+
     subset=None,
     inplace=True
 )
@@ -47,7 +47,7 @@ print(file)
 
 for i, row in file.groupby(file.index // 1):
     examples = row['sentence']
-    my_prompt = prompt_prevention + ' '.join(examples)
+    my_prompt = prompt_intention + ' '.join(examples)
 
     response = openai.Completion.create(
         engine="text-davinci-003",
@@ -61,7 +61,7 @@ for i, row in file.groupby(file.index // 1):
     )
 
     # print(response['choices'][0]['text'])
-    print(response['choices'][0]['text'])
+    # print(response['choices'][0]['text'])
     # for x in response['choices'][0]['text'].split('\n'):
     #     print(x)
     #     generated_sentences.append(x)
@@ -69,7 +69,9 @@ for i, row in file.groupby(file.index // 1):
     generated_sentences.append(response['choices'][0]['text'])
     time.sleep(10)
     data_frame = pd.DataFrame(generated_sentences, columns=['generated events'])
-    data_frame.to_csv('generated_event_triggers_GPT3_second_hit_prevention_nothing.csv')
+    print('I am just here ')
+    data_frame.to_csv('left_intention_with_events2.csv')
+    print('saved')
 
 # data_frame = pd.DataFrame(generated_sentences, columns=['generated sentences'])
 # data_frame.to_csv('generated_event_triggers_GPT3_second_hit_intention.csv')

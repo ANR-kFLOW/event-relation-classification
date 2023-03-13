@@ -1,7 +1,7 @@
 import itertools
 from torch.optim.lr_scheduler import StepLR
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
 from read_data import *
 import numpy as np
@@ -15,10 +15,6 @@ model = BertForSequenceClassification.from_pretrained(
     output_attentions = False,
     output_hidden_states = False,
 )
-
-
-
-
 # Recommended learning rates (Adam): 5e-5, 3e-5, 2e-5. See: https://arxiv.org/pdf/1810.04805.pdf
 optimizer = torch.optim.AdamW(model.parameters(),
                               lr = 5e-5,

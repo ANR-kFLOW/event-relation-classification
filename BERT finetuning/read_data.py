@@ -1,10 +1,14 @@
 import pandas as pd
 from transformers import BertTokenizer, BertForSequenceClassification
 from sklearn.metrics import classification_report
-train=pd.read_csv('original_train.csv')
-val=pd.read_csv('original_val.csv')
-file = pd.concat([train, val], axis=0)
+import os
+path_to_data = os.path.join('..', 'data')
+train = pd.read_csv(path_to_data+'/joined_train.csv')
+val = pd.read_csv(path_to_data+'/joined_val.csv')
+test = pd.read_csv(path_to_data+'/original_test.csv')
 
+file = pd.concat([train, val], axis=0)
+print(file)
 from torch.utils.data import TensorDataset, DataLoader, RandomSampler, SequentialSampler
 from sklearn.model_selection import train_test_split
 import numpy as np
@@ -13,7 +17,7 @@ import torch
 le = preprocessing.LabelEncoder()
 le.fit(file.label)
 labels=le.transform(file.label)
-text = file.text.values
+text = file.sentence.values
 token_id = []
 attention_masks = []
 tags=file.tag

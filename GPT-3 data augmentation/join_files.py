@@ -11,10 +11,7 @@ sentences = pd.read_csv('/Users/youssrarebboud/Desktop/intention_generated_gpt3_
 len(sentences)
 result = pd.concat([file1, file2, file3])
 print(len(result))
-# result.columns=['0','events']
-# new_row = {'0':'979', 'events':'(sanctions, invading)\n(Arms embargo, violence)\n(Sanctions,  nuclear)\n(arms embargo, abuse)'}
-# result = result.append(new_row, ignore_index=True)
-# # result=result.append(['0820','(sanctions, invading)\n\n(Arms embargo, violence)\n\n(Sanctions,  nuclear)\n\n(arms embargo, abuse)'])
-# print(result)
+
+
 #
 result.to_csv('intention_gpt3.csv')

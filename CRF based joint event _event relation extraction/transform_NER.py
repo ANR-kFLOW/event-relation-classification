@@ -15,57 +15,57 @@ from read_data import *
 #     doc=nlp(sentence)
 #     tags=[token.pos_ for token in doc]
 #     return tags
-# our_annotations_path = [timebank_path, event_causality_path]
-# data = []
-# psd_tag_data=[]
-# text=[]
-# cpt = 1
-# lab=[]
-# for path in our_annotations_path:
-#     for file in os.listdir(path):
-#         print(file)
-#
-#         if file != '.DS_Store':
-#
-#             # label = 1 if file[:-4] == 'causes' else 2 if file[:-4] =='enables' else 3 if file[:-4]== 'prevents' else 4 if file[:-4] =='intends' else 5
-#             df = read_file(path + '/' + file)
-#
-#             for index, row in df.iterrows():
-#                 event1, event2 = get_events(row)
-#                 # data.append(row['sentence'])
-#                 # sent = row['sentence'].split()
-#                 text.append(row['sentence'])
-#                 sent=[token.text for token in nlp(row['sentence'])]
-#                 tag2 = 'effect'
-#                 tag1 = 'cause' if file[:-4] == 'causes' else 'condition' if file[
-#                                                                             :-4] == 'enables' else 'prevention' if file[
-#                                                                                                                 :-4] == 'prevents' else 'intention' if file[
-#                                                                                                                                                    :-4] == 'intends' else 'O'
-#                 label='cause' if file[:-4] == 'causes' else 'enable' if file[
-#                                                                             :-4] == 'enables' else 'prevent' if file[
-#                                                                                                                 :-4] == 'prevents' else 'intend' if file[
-#                                                                                                                                                    :-4] == 'intends' else '0'
-#
-#                 lab.append(label)
-#                 tags = []
-#                 pos_tags=[]
-#                 postags=get_pos_data(nlp(row['sentence']))
-#                 postags=list(filter(lambda i: i != 'SPACE', postags))
-#
-#
-#                 for word,pos in zip(sent,postags):
-#                     if word == event1:
-#                         tags.append(tag1)
-#                     elif word == event2:
-#                         tags.append(tag2)
-#                     else:
-#                         tags.append(pos)
-#                     pos_tags.append(pos)
-#
-#                 data.append(' '.join(tags))
-#                 psd_tag_data.append(' '.join(pos_tags))
-#
-#                 # data.append([row['sentence'], label, file[:-4]])
+our_annotations_path = [timebank_path, event_causality_path]
+data = []
+psd_tag_data=[]
+text=[]
+cpt = 1
+lab=[]
+for path in our_annotations_path:
+    for file in os.listdir(path):
+        print(file)
+
+        if file != '.DS_Store':
+
+            # label = 1 if file[:-4] == 'causes' else 2 if file[:-4] =='enables' else 3 if file[:-4]== 'prevents' else 4 if file[:-4] =='intends' else 5
+            df = read_file(path + '/' + file)
+
+            for index, row in df.iterrows():
+                event1, event2 = get_events(row)
+                # data.append(row['sentence'])
+                # sent = row['sentence'].split()
+                text.append(row['sentence'])
+                sent=[token.text for token in nlp(row['sentence'])]
+                tag2 = 'effect'
+                tag1 = 'cause' if file[:-4] == 'causes' else 'condition' if file[
+                                                                            :-4] == 'enables' else 'prevention' if file[
+                                                                                                                :-4] == 'prevents' else 'intention' if file[
+                                                                                                                                                   :-4] == 'intends' else 'O'
+                label='cause' if file[:-4] == 'causes' else 'enable' if file[
+                                                                            :-4] == 'enables' else 'prevent' if file[
+                                                                                                                :-4] == 'prevents' else 'intend' if file[
+                                                                                                                                                   :-4] == 'intends' else '0'
+
+                lab.append(label)
+                tags = []
+                pos_tags=[]
+                postags=get_pos_data(nlp(row['sentence']))
+                postags=list(filter(lambda i: i != 'SPACE', postags))
+
+
+                for word,pos in zip(sent,postags):
+                    if word == event1:
+                        tags.append(tag1)
+                    elif word == event2:
+                        tags.append(tag2)
+                    else:
+                        tags.append(pos)
+                    pos_tags.append(pos)
+
+                data.append(' '.join(tags))
+                psd_tag_data.append(' '.join(pos_tags))
+
+                # data.append([row['sentence'], label, file[:-4]])
 #
 # #
 # #

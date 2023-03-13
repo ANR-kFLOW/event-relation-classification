@@ -1,0 +1,1139 @@
+2023-03-13 08:01:12.965982: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-03-13 08:01:13.964001: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: Ne peut ouvrir le fichier d'objet partagé: Aucun fichier ou dossier de ce type
+2023-03-13 08:01:13.964093: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: Ne peut ouvrir le fichier d'objet partagé: Aucun fichier ou dossier de ce type
+2023-03-13 08:01:13.964107: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to 'longest_first' truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+/home/yrebboud/finetuning_bert/transformers/src/transformers/tokenization_utils_base.py:2339: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding='longest'` to pad to the longest sequence in the batch, or use `padding='max_length'` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
+  warnings.warn(
+Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForSequenceClassification: ['cls.predictions.transform.dense.bias', 'cls.predictions.bias', 'cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.weight', 'cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.transform.LayerNorm.bias']
+- This IS expected if you are initializing BertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of BertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+    Unnamed: 0.1  ...    label
+0            350  ...   enable
+1            291  ...    cause
+2             32  ...        0
+3            164  ...    cause
+4            493  ...  prevent
+..           ...  ...      ...
+26           337  ...    cause
+27           583  ...   enable
+28            14  ...        0
+29           472  ...  prevent
+30           523  ...   enable
+
+[519 rows x 5 columns]
+heeereeeee
+Epoch:   0%|          | 0/20 [00:00<?, ?it/s]/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch:   5%|▌         | 1/20 [01:31<29:07, 91.97s/it]------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([1, 1, 1, 1, 1, 1, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([1, 1, 1, 1, 1, 1, 1, 4]), array([1, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([1, 1, 1, 1, 1, 1, 1, 4]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 2, 1, 1, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([1, 1, 1, 1, 1, 1, 1, 4]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 2, 1, 1, 1, 1, 2]), array([1, 2, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([1, 1, 1, 1, 1, 1, 1, 4]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 2, 1, 1, 1, 1, 2]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([1, 1, 1, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([1, 1, 1, 1, 1, 1, 1, 4]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 2, 1, 1, 1, 1, 2]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([1, 1, 1, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([2, 1, 1, 1, 1, 2, 4, 1]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([1, 1, 1, 1, 1, 1, 1, 4]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 2, 1, 1, 1, 1, 2]), array([1, 2, 1, 1, 1, 1, 1, 1]), array([1, 1, 1, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 2, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 1.3338
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         9
+       cause       0.56      0.92      0.69        36
+      enable       0.53      0.53      0.53        15
+      intend       0.00      0.00      0.00         6
+     prevent       0.75      0.25      0.38        12
+
+    accuracy                           0.56        78
+   macro avg       0.37      0.34      0.32        78
+weighted avg       0.48      0.56      0.48        78
+
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 1, 2]), array([1, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 1, 2]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 1, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 1, 2]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 1, 4, 1, 4]), array([1, 1, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 1, 2]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 1, 4, 1, 4]), array([1, 1, 1, 1, 1, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 1, 2]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 1, 4, 1, 4]), array([1, 1, 1, 1, 1, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([1, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 1, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 1, 2]), array([1, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 1, 4, 1, 4]), array([1, 1, 1, 1, 1, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch:  10%|█         | 2/20 [03:04<27:37, 92.11s/it]/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch:  15%|█▌        | 3/20 [04:36<26:08, 92.26s/it][array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.8334
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         9
+       cause       0.59      0.92      0.72        36
+      enable       0.91      0.67      0.77        15
+      intend       1.00      0.17      0.29         6
+     prevent       0.70      0.58      0.64        12
+
+    accuracy                           0.65        78
+   macro avg       0.64      0.47      0.48        78
+weighted avg       0.63      0.65      0.60        78
+
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1]), array([2, 2, 1, 1, 2, 4, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1]), array([2, 2, 1, 1, 2, 4, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1]), array([2, 2, 1, 1, 2, 4, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([4, 1, 2, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1]), array([2, 2, 1, 1, 2, 4, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([4, 1, 2, 4, 1, 1, 2, 1]), array([1, 1, 1, 2, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1]), array([2, 2, 1, 1, 2, 4, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([4, 1, 2, 4, 1, 1, 2, 1]), array([1, 1, 1, 2, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1]), array([2, 2, 1, 1, 2, 4, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([4, 1, 2, 4, 1, 1, 2, 1]), array([1, 1, 1, 2, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 4, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1]), array([2, 2, 1, 1, 2, 4, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([4, 1, 2, 4, 1, 1, 2, 1]), array([1, 1, 1, 2, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 4, 1]), array([1, 1, 1, 4, 1, 4, 2, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([2, 1, 4, 1, 1, 2, 4, 4]), array([1, 4, 2, 1, 4, 1, 1, 1]), array([2, 2, 1, 1, 2, 4, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([4, 1, 2, 4, 1, 1, 2, 1]), array([1, 1, 1, 2, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 4, 1]), array([1, 1, 1, 4, 1, 4, 2, 4]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.5179
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         9
+       cause       0.68      0.75      0.71        36
+      enable       0.67      0.67      0.67        15
+      intend       1.00      0.17      0.29         6
+     prevent       0.45      0.83      0.59        12
+
+    accuracy                           0.62        78
+   macro avg       0.56      0.48      0.45        78
+weighted avg       0.59      0.62      0.57        78
+
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch:  20%|██        | 4/20 [06:09<24:37, 92.35s/it]/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/yrebboud/.conda/envs/tf/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1334: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Epoch:  25%|██▌       | 5/20 [07:41<23:06, 92.42s/it][array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([1, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.3629
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         9
+       cause       0.60      0.83      0.70        36
+      enable       0.77      0.67      0.71        15
+      intend       1.00      0.33      0.50         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.64        78
+   macro avg       0.60      0.50      0.51        78
+weighted avg       0.60      0.64      0.60        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 4, 1, 1, 1, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([1, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.2445
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         9
+       cause       0.62      0.83      0.71        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.64      0.75      0.69        12
+
+    accuracy                           0.65        78
+   macro avg       0.54      0.52      0.51        78
+weighted avg       0.59      0.65      0.61        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbslEpoch:  30%|███       | 6/20 [09:14<21:34, 92.43s/it]Epoch:  35%|███▌      | 7/20 [10:46<20:01, 92.43s/it]
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.2018
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1826
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+Epoch:  40%|████      | 8/20 [12:18<18:29, 92.42s/it]Epoch:  45%|████▌     | 9/20 [13:51<16:56, 92.43s/it][array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1737
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1742
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+Epoch:  50%|█████     | 10/20 [15:23<15:24, 92.41s/it][array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1707
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+Epoch:  55%|█████▌    | 11/20 [16:56<13:51, 92.42s/it]Epoch:  60%|██████    | 12/20 [18:28<12:19, 92.43s/it][array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1730
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1697
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+Epoch:  65%|██████▌   | 13/20 [20:01<10:47, 92.44s/it]Epoch:  70%|███████   | 14/20 [21:33<09:14, 92.43s/it][array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1681
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1767
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbslEpoch:  75%|███████▌  | 15/20 [23:05<07:42, 92.43s/it]Epoch:  80%|████████  | 16/20 [24:38<06:09, 92.41s/it]
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1725
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1655
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+Epoch:  85%|████████▌ | 17/20 [26:10<04:37, 92.39s/it]Epoch:  90%|█████████ | 18/20 [27:42<03:04, 92.35s/it][array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1695
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1688
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+Epoch:  95%|█████████▌| 19/20 [29:15<01:32, 92.28s/it][array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1684
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1])]
+lbsl
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2])]
+------------predictions-------
+[array([3, 1, 2, 1, 1, 2, 4, 4]), array([1, 4, 1, 1, 1, 1, 1, 1]), array([2, 2, 1, 1, 2, 1, 1, 2]), array([2, 1, 1, 1, 1, 0, 4, 4]), array([3, 1, 2, 1, 1, 1, 2, 1]), array([0, 1, 1, 1, 4, 4, 1, 4]), array([1, 1, 2, 1, 4, 1, 1, 1]), array([4, 1, 4, 1, 1, 4, 1, 1]), array([1, 1, 1, 4, 1, 1, 2, 1]), array([2, 1, 3, 1, 2, 1])]
+lbsl
+Epoch: 100%|██████████| 20/20 [30:47<00:00, 92.19s/it]Epoch: 100%|██████████| 20/20 [30:47<00:00, 92.35s/it]
+[array([0, 1, 0, 1, 0, 1, 4, 4]), array([0, 4, 4, 1, 1, 1, 1, 1]), array([2, 2, 4, 1, 1, 4, 1, 2]), array([2, 1, 4, 3, 0, 0, 4, 2]), array([3, 1, 2, 1, 3, 1, 2, 1]), array([0, 1, 1, 3, 1, 1, 1, 4]), array([3, 1, 2, 1, 1, 2, 2, 1]), array([1, 1, 4, 1, 1, 4, 1, 0]), array([0, 1, 1, 4, 1, 2, 2, 2]), array([2, 1, 3, 1, 2, 1])]
+
+	 - Train loss: 0.1693
+              precision    recall  f1-score   support
+
+           0       1.00      0.22      0.36         9
+       cause       0.64      0.83      0.72        36
+      enable       0.77      0.67      0.71        15
+      intend       0.67      0.33      0.44         6
+     prevent       0.62      0.67      0.64        12
+
+    accuracy                           0.67        78
+   macro avg       0.74      0.54      0.58        78
+weighted avg       0.70      0.67      0.65        78
+

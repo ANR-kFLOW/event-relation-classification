@@ -1,12 +1,19 @@
 import re
-
-# nltk.download('punkt')
+import nltk
+nltk.download('punkt')
 import pandas as pd
 from nltk import tokenize
 
-prevention = pd.read_csv('/Users/youssrarebboud/Desktop/generated_dataset/enabling_gpt3_sen_event.csv')
-sentences_prevention = prevention['sentence'].values
-events_prevention = prevention['events'].values
+sentences = pd.read_csv('/Users/youssrarebboud/Desktop/intention_left.csv')
+events=pd.read_csv('/Users/youssrarebboud/PycharmProjects/prompts_based_data_augmentation/left_intention_with_events2.csv')
+
+# sentences.columns=['sentence']
+# events.columns=['events']
+sentences_prevention = sentences['0'].values
+events_prevention = events['generated events'].values
+
+print(sentences.columns)
+# print(events_prevention)
 pattern = '(\([a-zA-Z\s]+,\s[a-zA-Z\s]+\)(\n)*)+'
 pattern2_enable = '(\([a-zA-Z]*\)==trigger1\,\s\([a-zA-Z]*\)==trigger2(\n)*)+'
 pattern3_enable = 'trigger1:\s[a-zA-Z]+\s\(trigger2:\s[a-zA-Z]+'
@@ -58,4 +65,4 @@ sep_sen, evnts, joined = seperate_sentences(sentences_prevention, events_prevent
 prv = pd.DataFrame(joined, columns=['sentence', 'trigger1', 'trigger2'])
 prv = prv.drop_duplicates()
 print(prv)
-prv.to_csv('/Users/youssrarebboud/Desktop/generated_dataset/enabling_clean.csv')
+prv.to_csv('/Users/youssrarebboud/Desktop/cleaned_left_intention.csv')
