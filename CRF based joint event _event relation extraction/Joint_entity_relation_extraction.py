@@ -76,7 +76,7 @@ def build_model():
                                        return_attention_scores=True)
     print('done')
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    Dense_layer_1 = Dense(500, activation='relu')(merged)
+    Dense_layer_1 = Dense(200, activation='relu')(merged)
 
     Dropout_layer_1 = Dropout(0.5)(Dense_layer_1)
     BiLSTM = Bidirectional(LSTM(8, return_sequences=True, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM23")(
@@ -87,7 +87,7 @@ def build_model():
                                        return_attention_scores=True)
     print('done')
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    Dense_layer_1 = Dense(500, activation='relu')(merged)
+    Dense_layer_1 = Dense(200, activation='relu')(merged)
 
     dense = Dense(vocab_size, activation="relu")(Dense_layer_1)
 
@@ -125,7 +125,7 @@ def build_model():
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
     BiLSTM = Bidirectional(LSTM(8, return_sequences=False, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM24")(
         merged)
-    Dense_layer_1 = Dense(500, activation='relu')(BiLSTM)
+    Dense_layer_1 = Dense(200, activation='relu')(BiLSTM)
     flatten = tf.keras.layers.Flatten()(Dense_layer_1)
 
     Dropout_layer_1 = Dropout(0.5)(flatten)

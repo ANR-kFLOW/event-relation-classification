@@ -11,13 +11,13 @@ path_to_data = os.path.join('..', 'data')
 train = pd.read_csv(path_to_data+'/joined_train.csv')
 val = pd.read_csv(path_to_data+'/joined_val.csv')
 test = pd.read_csv(path_to_data+'/original_test.csv')
-
+print(train.columns)
 # train=pd.read_csv('original_train.csv')
 # val=pd.read_csv('original_val.csv')
 # test=pd.read_csv('original_test.csv')
-train['tags']=train['tag'].str.replace('O', '0')
-val['tags']=val['tag'].str.replace('O', '0')
-val['tags']=val['tag'].str.replace('O', '0')
+train['tags']=train['tag_2'].str.replace('O', '0')
+val['tags']=val['tag_2'].str.replace('O', '0')
+test['tags']=test['tag_2'].str.replace('O', '0')
 
 data = pd.concat([train, val], axis=0)
 
@@ -60,7 +60,7 @@ print(vocab_size)
 tokenizer = Tokenizer()
 # tokenizer.word_index = {word: index for index, word in enumerate(words)}
 
-# tokenizer.fit_on_texts(data['tag'])
+tokenizer.fit_on_texts(data['tags'])
 
 # Convert the tags to sequences and pad them
 y_val_NER = tokenizer.texts_to_sequences(y_val_NER)
@@ -72,7 +72,7 @@ y_test_label_NER = pad_sequences(y_test_label_NER, maxlen=max_len, padding='post
 
 y_train_label_NER=tokenizer.texts_to_sequences(y_train_label_NER)
 y_train_label_NER = pad_sequences(y_train_label_NER, maxlen=max_len, padding='post', value=9)
-print(y_train_label_NER)
+print(y_train_label_NER[1])
 print(tokenizer.word_index)
 # Print the resulting padded sequences
 
