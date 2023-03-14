@@ -1,18 +1,17 @@
+import os
+
 import numpy as np
 import pandas as pd
 import torch
 import torch.optim as optim
+from nltk.tokenize import word_tokenize
 from sklearn.metrics import classification_report
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import BertForTokenClassification
 from transformers import BertTokenizerFast
-from nltk.tokenize import word_tokenize
-import itertools
-import torch.nn.functional as F
-import os
-import os
+
 os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 label_all_tokens = False
 # read data, this setting is for training and testing on original data, change the data file to

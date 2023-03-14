@@ -1,41 +1,24 @@
-import warnings
-from keras.preprocessing.text import text_to_word_sequence
-from torch.utils.data import Dataset, DataLoader
-from torch import from_numpy, tensor
-import numpy as np
-import numpy as np
-from torch.utils.data import Dataset, DataLoader
-from tensorflow_addons.text.crf import crf_log_likelihood
-warnings.filterwarnings("ignore")
-import spacy
-from sklearn.metrics import classification_report
 import itertools
-from torch.optim.lr_scheduler import StepLR
-from tqdm import tqdm
-import numpy as np
-import pandas as pd
-from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, Dense, TimeDistributed, Concatenate, \
-    MultiHeadAttention, Dropout, Lambda
+import warnings
 
-from tensorflow.keras import Model
 import tensorflow as tf
 import tensorflow_hub as hub
+from bert import bert_tokenization
+from sklearn.metrics import classification_report
+from tensorflow.keras import Model
+from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, Dense, Concatenate, \
+    MultiHeadAttention, Dropout
+from tensorflow.python.client import device_lib
+from tensorflow_addons.text.crf import crf_log_likelihood
+from tf2crf import CRF
 
 from read_data import *
-import tensorflow as tf
-from tf2crf import CRF
-from bert import bert_tokenization
-import os
-import tensorflow_addons as tfa
 
 # os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 BertTokenizer = bert_tokenization.FullTokenizer
+warnings.filterwarnings("ignore")
 
-# from bert.tokenization import FullTokenizer
-import tensorflow_text as text
-
-from tensorflow.python.client import device_lib
 print(device_lib.list_local_devices())
 # Set the device to use for computation
 physical_devices=tf.config.list_physical_devices('GPU')
