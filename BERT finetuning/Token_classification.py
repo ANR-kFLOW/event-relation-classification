@@ -1,22 +1,25 @@
+from os import path
 import numpy as np
 import pandas as pd
 import torch
+import torch.nn.functional as F
 import torch.optim as optim
+from nltk.tokenize import word_tokenize
 from sklearn.metrics import classification_report
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import BertForTokenClassification
 from transformers import BertTokenizerFast
-from nltk.tokenize import word_tokenize
-import itertools
-import torch.nn.functional as F
+
+ROOT = 'data/'
+
 label_all_tokens = False
 # read data, this setting is for training and testing on original data, change the data file to
 # joined_train and joined_val to test on the new dataset
-df_train = pd.read_csv('joined_train.csv')
-df_val = pd.read_csv('joined_val.csv')
-df_test = pd.read_csv('original_test.csv')
+df_train = pd.read_csv(path.join(ROOT, 'joined_train.csv'))
+df_val = pd.read_csv(path.join(ROOT, 'joined_val.csv'))
+df_test = pd.read_csv(path.join(ROOT, 'original_test.csv'))
 labels = [word_tokenize(i) for i in df_train['tag'].values.tolist()]
 
 # Check how many labels are there in the dataset
@@ -31,8 +34,6 @@ print(unique_labels)
 labels_to_ids = {k: v for v, k in enumerate(sorted(unique_labels))}
 ids_to_labels = {v: k for v, k in enumerate(sorted(unique_labels))}
 print(labels_to_ids)
-
-
 
 tokenizer = BertTokenizerFast.from_pretrained('bert-base-cased')
 
@@ -75,8 +76,6 @@ class DataSequence(torch.utils.data.Dataset):
                       txt]
         self.labels = [align_label(i, j) for i, j in zip(txt, lb)]
 
-
-
     def __len__(self):
         return len(self.labels)
 
@@ -92,6 +91,7 @@ class DataSequence(torch.utils.data.Dataset):
 
         return batch_data, batch_labels
 
+
 def masked_loss(logits, targets, ignore_index):
     # Create a mask for the ignored classes
 
@@ -105,6 +105,7 @@ def masked_loss(logits, targets, ignore_index):
     masked_loss = loss * mask.float()
     masked_loss = masked_loss.sum() / mask.float().sum()
     return masked_loss
+
 
 class BertModel(torch.nn.Module):
 
@@ -152,9 +153,6 @@ def train_loop(model, df_train, df_val):
         model.train()
 
         for train_data, train_label in tqdm(train_dataloader):
-            print(len(train_label))
-            print(len(train_label))
-
             train_label = train_label.to(device)
             mask = train_data['attention_mask'].squeeze(1).to(device)
             input_id = train_data['input_ids'].squeeze(1).to(device)
@@ -165,7 +163,6 @@ def train_loop(model, df_train, df_val):
             for i in range(logits.shape[0]):
                 logits_clean = logits[i][train_label[i] != -100]
                 label_clean = train_label[i][train_label[i] != -100]
-
 
                 predictions = logits_clean.argmax(dim=1)
                 acc = (predictions == label_clean).float().mean()

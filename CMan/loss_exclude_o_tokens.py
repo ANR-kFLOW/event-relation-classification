@@ -1,47 +1,30 @@
-import warnings
-from keras.preprocessing.text import text_to_word_sequence
-from torch.utils.data import Dataset, DataLoader
-from torch import from_numpy, tensor
-import numpy as np
-import numpy as np
-from torch.utils.data import Dataset, DataLoader
-from tensorflow_addons.text.crf import crf_log_likelihood
-warnings.filterwarnings("ignore")
-import spacy
-from sklearn.metrics import classification_report
 import itertools
-from torch.optim.lr_scheduler import StepLR
-from tqdm import tqdm
-import numpy as np
-import pandas as pd
-from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, Dense, TimeDistributed, Concatenate, \
-    MultiHeadAttention, Dropout, Lambda
+import warnings
 
-from tensorflow.keras import Model
 import tensorflow as tf
 import tensorflow_hub as hub
+from bert import bert_tokenization
+from sklearn.metrics import classification_report
+from tensorflow.keras import Model
+from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, Dense, Concatenate, \
+    MultiHeadAttention, Dropout
+from tensorflow.python.client import device_lib
+from tensorflow_addons.text.crf import crf_log_likelihood
+from tf2crf import CRF
 
 from read_data import *
-import tensorflow as tf
-from tf2crf import CRF
-from bert import bert_tokenization
-import os
-import tensorflow_addons as tfa
 
 # os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+
+warnings.filterwarnings("ignore")
 BertTokenizer = bert_tokenization.FullTokenizer
 
-# from bert.tokenization import FullTokenizer
-import tensorflow_text as text
-
-from tensorflow.python.client import device_lib
 print(device_lib.list_local_devices())
 # Set the device to use for computation
-physical_devices=tf.config.list_physical_devices('GPU')
-print('physical_devices',physical_devices)
+physical_devices = tf.config.list_physical_devices('GPU')
+print('physical_devices', physical_devices)
 tf.config.experimental.set_visible_devices(physical_devices, 'GPU')
-
 
 bert_preprocess = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
 bert_encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/4", trainable=True)
@@ -50,11 +33,8 @@ bert_layer = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H
 
 vocab = ' '.join(data['tag'])
 
-
-
 words = set(text_to_word_sequence(vocab))
 vocab_size = len(words)
-
 
 
 def build_model():
@@ -147,7 +127,8 @@ print(BSA.summary())
 ds = tf.data.Dataset.from_tensor_slices((X_train_token, y_train_label_NER, y_train_label_NER, label_train)).batch(16)
 ds_val = tf.data.Dataset.from_tensor_slices((X_val_token, y_val_NER, y_val_NER, label_val)).batch(16)
 
-#define metrics
+
+# define metrics
 class MultiClassConfusionMatrix(tf.keras.metrics.Metric):
 
     def __init__(self, num_classes, name="multi_class_confusion_matrix", **kwargs):
@@ -176,14 +157,13 @@ class MultiClassConfusionMatrix(tf.keras.metrics.Metric):
         """
         self.mctp_conf_matrix.assign(tf.zeros((self.num_classes, self.num_classes), dtype=tf.dtypes.int32))
 
-#define loss function for both events extraction and event relation extraction
+
+# define loss function for both events extraction and event relation extraction
 def custum_crf_loss(potentials, sequence_length, chain_kernel, y):
     return tf.reduce_mean(-crf_log_likelihood(potentials, y, sequence_length, chain_kernel)[0])
 
 
 loss_obj_cat = tf.keras.losses.SparseCategoricalCrossentropy()
-
-
 
 optimizer = tf.keras.optimizers.Adam()
 
@@ -217,23 +197,12 @@ for epoch in range(50):
             # pred_out=pred_out[0, :]
             # print(pred_out)
             # print(y_pred)
-            print('X_train_token')
-            print(pred_out[0])
 
             viterbi_sequence, potentials, sequence_length, chain_kernel = crf_out
-            print('viterbi_sequence')
-            print(viterbi_sequence)
-            print('sequence_length')
-            print(sequence_length)
-            print('potentials')
-            print(potentials)
-            print('chain_kernel')
-            print(chain_kernel)
-            print('y_train_label_NER')
-            print(y_train_label_NER)
+
+            # print(potentials.shape)
             # print(sequence_length.shape)
-            print(label_train_NER.shape)
-            crf_loss = custum_crf_loss(potentials, sequence_length, chain_kernel, y_train_label_NER)
+            crf_loss = custum_crf_loss(potentials, sequence_length, chain_kernel, label_train_NER)
             pred_loss = loss_obj_cat(label_train, pred_out)
             total_loss = crf_loss + pred_loss
             # y_pred = tf.argmax(pred_out, 1)
@@ -294,10 +263,8 @@ for epoch in range(50):
     labels_crf = []
     logits_re = []
     labels_re = []
-    logits_c=[]
-    gr_truth_crf=[]
-
-
+    logits_c = []
+    gr_truth_crf = []
 
     for i, (X_val_token, label_val_NER, label_val_NER, label_val) in enumerate(ds_val):
         progbar.update(i)
@@ -335,7 +302,6 @@ for epoch in range(50):
             # print(labels_crf)
             logits_c.append(list(itertools.chain(*logits_crf)))
 
-
     prediction_rp = list(itertools.chain(*logits_c))
     gt_crf = list(itertools.chain(*labels_crf))
     print('pprediction_rp')
@@ -348,76 +314,15 @@ for epoch in range(50):
     print(result_list)
     pred_re = list(itertools.chain(*logits_re))
     lbls_re = list(itertools.chain(*labels_re))
-        # print('prediction itterated')
-        # print(gt_re)
+    # print('prediction itterated')
+    # print(gt_re)
     report_crf = classification_report(gt_crf, result_list)
 
     print(report_crf)
     report_re = classification_report(lbls_re, pred_re)
     print(report_re)
-BSA.save('joined_crf')
-ds_test = tf.data.Dataset.from_tensor_slices((X_test_token, y_test_label_NER, y_test_label_NER, label_test)).batch(16)
-logits_crf=[]
-labels_crf=[]
-logits_c=[]
 
-
-for i, (X_val_token, label_val_NER, label_val_NER, label_val) in enumerate(ds_test):
-    progbar.update(i)
-    crf_out, pred_out = BSA([X_val_token, label_val_NER], training=False)
-    viterbi_sequence, potentials, sequence_length, chain_kernel = crf_out
-    logits_re.append(np.argmax(pred_out, axis=1).flatten())
-    labels_re.append(label_val)
-    # crf_layer = BSA.get_layer('crf_layer')
-    # y_pred = crf_out[0]
-    # sequence_lengths = crf_out[2]
-    # viterbi_sequence, viterbi_score = crf_layer.viterbi_decode(y_pred, sequence_lengths)
-    # print('viterbi_sequence',viterbi_sequence)
-    for i in range(viterbi_sequence.shape[0]):
-        label_clean = label_val_NER[i][label_val_NER[i] != 9]
-
-        logits_clean = viterbi_sequence[i][label_val_NER[i] != 9]
-
-        # print('len label_clean', len(label_clean))
-        # print('len logits',len(logits_clean))
-        # pre_report = logits_clean.detach().cpu().numpy()
-        print('------logits_clean-------')
-        print(logits_clean)
-        # print('----------------')
-        # print(label_clean)
-        # print('-------------pre------------')
-        #
-        # predictions = logits_clean.argmax(dim=1)
-
-        logits_crf.append(logits_clean)
-        # print('----logits crf-----')
-        # print(logits_crf)
-
-        labels_crf.append(label_clean)
-        # print('----lbl crf-----')
-        # print(labels_crf)
-        logits_c.append(list(itertools.chain(*logits_crf)))
-
-prediction_rp = list(itertools.chain(*logits_c))
-gt_crf = list(itertools.chain(*labels_crf))
-print('pprediction_rp')
-print(logits_c)
-result_tensor = tf.concat(logits_crf, axis=0)
-
-# Convert the result tensor to a numpy array to get a Python list
-result_list = result_tensor.numpy().tolist()
-print('result tensor')
-print(result_list)
-pred_re = list(itertools.chain(*logits_re))
-lbls_re = list(itertools.chain(*labels_re))
-# print('prediction itterated')
-# print(gt_re)
-report_crf = classification_report(gt_crf, result_list)
-
-print(report_crf)
-report_re = classification_report(lbls_re, pred_re)
-print(report_re)
-        # Update val metrics
+    # Update val metrics
 #         val_acc_metric_rel.update_state(label_val, pred_out)
 #         crf_val_acc_metric.update_state(label_val_NER, viterbi_sequence, tf.sequence_mask(sequence_length, label_val_NER.shape[1]))
 #         metric_val.update_state(label_val, pred_out)
@@ -448,4 +353,4 @@ print(report_re)
 #     print(recal_val)
 
 
-BSA.save('joined_crf')
+BSA.save('original_crf')

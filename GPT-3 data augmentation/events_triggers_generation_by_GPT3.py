@@ -27,13 +27,7 @@ generated_sentences = []
 
 file = read_file('/Users/youssrarebboud/Desktop/intention_left.csv')
 print(len(file))
-file.dropna(
-    axis=0,
-    how='any',
-
-    subset=None,
-    inplace=True
-)
+file.dropna(axis=0, how='any', subset=None, inplace=True)
 file = file.drop_duplicates()
 print(len(file))
 file.columns = ['idx', 'sentence']

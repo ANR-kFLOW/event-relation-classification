@@ -1,23 +1,40 @@
-# Prompt based data augmentation for event and event relation classification
- Prompt based data augmentation for event and event relation classification
-# summary 
+# Event Relation Classification
 
-Events relashionship extraction from text is a crutial task that serves many downstream tasks (exp:Link prediction). Events relations can vary between 
-temporality and causlailty, but can also go beyond causality representing other relashionship types such as Prevention, intention and enabling.
+This repository contains code and resources for the paper:
 
-For this sake, we are trying to perform events and events relationship extraction from plain text using different deep learning techniques.
-
-
-# joint-relation-extraction 
-
-Replication of the paper https://www.ijcai.org/proceedings/2020/0558.pdf: Modeling Dense Cross-Modal Interactions for
-Joint Entity-Relation Extraction.
-
-joint relation extraction and entity recognition with a Conditional random field **(CRF)**.
+> Youssra Rebboud, Pasquale Lisena and Raphaël Troncy.
+> **Prompt-based Data Augmentation for
+Semantically-precise Event Relation Classification**.
+> Submitted at Semantic Methods for Events and Stories (SEMMES) workshop 2023
 
 
+Install the required dependencies for all code
+
+    pip install -r requirements.txt
 
 
+## BERT finetuning 
 
-**Data material found in:** data folder
- TO be continued ...
+TBW small description of what it is doing
+
+TBW list of commands for running training and inference
+
+# CMan
+
+Replication of the paper:
+> Shan Zhao, Minghao Hu, Zhiping Cai, Fang Liu
+> **Modeling Dense Cross-Modal Interactions for Joint Entity-Relation Extraction.**
+> In *Proceedings of the Twenty-Ninth International Joint Conference on Artificial Intelligence (IJCAI)*
+> Pages 4032-4038. https://doi.org/10.24963/ijcai.2020/558
+
+Joint relation extraction and entity recognition with a Conditional random field **(CRF)**.
+
+# GPT-3 data augmentation
+
+Scripts for generating new sentences involving event relations, starting from definitions and examples.
+
+TBW list of commands for running it
+
+# Data
+
+The output dataset in csv format, divided in training, test and validation.
