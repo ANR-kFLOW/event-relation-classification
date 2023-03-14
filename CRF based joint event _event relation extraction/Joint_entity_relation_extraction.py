@@ -48,12 +48,13 @@ bert_encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12
 bert_layer = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/1",
                             trainable=True)
 
-vocab = ' '.join(data['tag'])
+vocab = ' '.join(data['tags'])
 
 
 
 words = set(text_to_word_sequence(vocab))
 vocab_size = len(words)
+print('vocan sizeof tags',vocab_size)
 
 
 
@@ -75,7 +76,7 @@ def build_model():
                                        return_attention_scores=True)
     print('done')
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    Dense_layer_1 = Dense(8336, activation='relu')(merged)
+    Dense_layer_1 = Dense(500, activation='relu')(merged)
 
     Dropout_layer_1 = Dropout(0.5)(Dense_layer_1)
     BiLSTM = Bidirectional(LSTM(8, return_sequences=True, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM23")(
@@ -86,7 +87,7 @@ def build_model():
                                        return_attention_scores=True)
     print('done')
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    Dense_layer_1 = Dense(8336, activation='relu')(merged)
+    Dense_layer_1 = Dense(500, activation='relu')(merged)
 
     dense = Dense(vocab_size, activation="relu")(Dense_layer_1)
 
@@ -124,7 +125,7 @@ def build_model():
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
     BiLSTM = Bidirectional(LSTM(8, return_sequences=False, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM24")(
         merged)
-    Dense_layer_1 = Dense(8336, activation='relu')(BiLSTM)
+    Dense_layer_1 = Dense(500, activation='relu')(BiLSTM)
     flatten = tf.keras.layers.Flatten()(Dense_layer_1)
 
     Dropout_layer_1 = Dropout(0.5)(flatten)
@@ -361,7 +362,8 @@ logits_crf=[]
 labels_crf=[]
 logits_c=[]
 
-
+BSA.save('joined_crf')
+print('=======================testing starts ====================')
 for i, (X_val_token, label_val_NER, label_val_NER, label_val) in enumerate(ds_test):
     progbar.update(i)
     crf_out, pred_out = BSA([X_val_token, label_val_NER], training=False)

@@ -15,9 +15,9 @@ test = pd.read_csv(path_to_data+'/original_test.csv')
 # train=pd.read_csv('original_train.csv')
 # val=pd.read_csv('original_val.csv')
 # test=pd.read_csv('original_test.csv')
-train['tag']=train['tag'].str.replace('O', '0')
-val['tag']=val['tag'].str.replace('O', '0')
-val['tag']=val['tag'].str.replace('O', '0')
+train['tags']=train['tag'].str.replace('O', '0')
+val['tags']=val['tag'].str.replace('O', '0')
+val['tags']=val['tag'].str.replace('O', '0')
 
 data = pd.concat([train, val], axis=0)
 
@@ -25,16 +25,16 @@ data = pd.concat([train, val], axis=0)
 # X_train, X_val, y_train, y_val = train_test_split(data, data['label'], test_size=0.2, random_state=0, stratify=data['label'])
 #
 X_train_token = train['sentence']
-y_train_label_NER = train['tag']
+y_train_label_NER = train['tags']
 
 print(y_train_label_NER)
 
 
 X_val_token = val['sentence']
-y_val_NER = val['tag']
+y_val_NER = val['tags']
 
 X_test_token = test['sentence']
-y_test_label_NER = test['tag']
+y_test_label_NER = test['tags']
 
 label_train = train['label']
 
@@ -43,7 +43,7 @@ label_val=val['label']
 
 label_test=test['label']
 
-vocab = ' '.join(data['tag'])
+vocab = ' '.join(data['tags'])
 
 
 
@@ -64,14 +64,14 @@ tokenizer = Tokenizer()
 
 # Convert the tags to sequences and pad them
 y_val_NER = tokenizer.texts_to_sequences(y_val_NER)
-y_val_NER = pad_sequences(y_val_NER, maxlen=max_len, padding='post', value=0)
+y_val_NER = pad_sequences(y_val_NER, maxlen=max_len, padding='post', value=9)
 
 y_test_label_NER=tokenizer.texts_to_sequences(y_test_label_NER)
-y_test_label_NER = pad_sequences(y_test_label_NER, maxlen=max_len, padding='post', value=0)
+y_test_label_NER = pad_sequences(y_test_label_NER, maxlen=max_len, padding='post', value=9)
 
 
 y_train_label_NER=tokenizer.texts_to_sequences(y_train_label_NER)
-y_train_label_NER = pad_sequences(y_train_label_NER, maxlen=max_len, padding='post', value=0)
+y_train_label_NER = pad_sequences(y_train_label_NER, maxlen=max_len, padding='post', value=9)
 print(y_train_label_NER)
 print(tokenizer.word_index)
 # Print the resulting padded sequences
