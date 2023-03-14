@@ -280,8 +280,8 @@ for epoch in range(50):
     # for idx, item in enumerate(precision):
     #     prec[le.inverse_transform([idx])[0]] = item
 
-    # loss_crf.reset_states()
-    # loss_cat.reset_states()
+    loss_crf.reset_states()
+    loss_cat.reset_states()
     # train_acc_metric_rel.reset_states()
     # crf_train_acc_metric.reset_states()
     # metric.reset_states()

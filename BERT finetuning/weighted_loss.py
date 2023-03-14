@@ -274,8 +274,6 @@ model = BertModel()
 train_loop(model, df_train, df_val)
 
 import itertools
-
-
 # testing the model on the test set
 def evaluate(model, df_test):
     pred = []

@@ -27,6 +27,7 @@ data = pd.concat([train, val], axis=0)
 X_train_token = train['sentence']
 y_train_label_NER = train['tag']
 
+print(y_train_label_NER)
 
 
 X_val_token = val['sentence']
@@ -54,10 +55,10 @@ print(vocab_size)
 # Tokenize the tags in the "tag" column
 # tokenizer = Tokenizer(num_words=vocab_size, lower=1, oov_token='<OOV>')
 
-words = [ 'n','intention', 'prevention', 'effect', 'condition', 'cause']
+# words = [ 'n','intention', 'prevention', 'effect', 'condition', 'cause']
 
 tokenizer = Tokenizer()
-tokenizer.word_index = {word: index for index, word in enumerate(words)}
+# tokenizer.word_index = {word: index for index, word in enumerate(words)}
 
 # tokenizer.fit_on_texts(data['tag'])
 
@@ -71,7 +72,7 @@ y_test_label_NER = pad_sequences(y_test_label_NER, maxlen=max_len, padding='post
 
 y_train_label_NER=tokenizer.texts_to_sequences(y_train_label_NER)
 y_train_label_NER = pad_sequences(y_train_label_NER, maxlen=max_len, padding='post', value=0)
-
+print(y_train_label_NER)
 print(tokenizer.word_index)
 # Print the resulting padded sequences
 
