@@ -1,41 +1,61 @@
-import itertools
 import warnings
+from keras.preprocessing.text import text_to_word_sequence
+from torch.utils.data import Dataset, DataLoader
+from torch import from_numpy, tensor
+import numpy as np
+import numpy as np
+from torch.utils.data import Dataset, DataLoader
+from tensorflow_addons.text.crf import crf_log_likelihood
+warnings.filterwarnings("ignore")
+import spacy
+from sklearn.metrics import classification_report
+import itertools
+from torch.optim.lr_scheduler import StepLR
+from tqdm import tqdm
+import numpy as np
+import pandas as pd
+from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, Dense, TimeDistributed, Concatenate, \
+    MultiHeadAttention, Dropout, Lambda
 
+from tensorflow.keras import Model
 import tensorflow as tf
 import tensorflow_hub as hub
-from bert import bert_tokenization
-from sklearn.metrics import classification_report
-from tensorflow.keras import Model
-from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, Dense, Concatenate, \
-    MultiHeadAttention, Dropout
-from tensorflow.python.client import device_lib
-from tensorflow_addons.text.crf import crf_log_likelihood
-from tf2crf import CRF
 
 from read_data import *
+import tensorflow as tf
+from tf2crf import CRF
+from bert import bert_tokenization
+import os
+import tensorflow_addons as tfa
 
-# from bert.tokenization import FullTokenizer
-
-warnings.filterwarnings("ignore")
 # os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 BertTokenizer = bert_tokenization.FullTokenizer
 
+# from bert.tokenization import FullTokenizer
+import tensorflow_text as text
+
+from tensorflow.python.client import device_lib
 print(device_lib.list_local_devices())
 # Set the device to use for computation
-physical_devices = tf.config.list_physical_devices('GPU')
-print('physical_devices', physical_devices)
+physical_devices=tf.config.list_physical_devices('GPU')
+print('physical_devices',physical_devices)
 tf.config.experimental.set_visible_devices(physical_devices, 'GPU')
+
 
 bert_preprocess = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
 bert_encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/4", trainable=True)
 bert_layer = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/1",
                             trainable=True)
 
-vocab = ' '.join(data['tag'])
+vocab = ' '.join(data['tags'])
+
+
 
 words = set(text_to_word_sequence(vocab))
 vocab_size = len(words)
+print('vocan sizeof tags',vocab_size)
+
 
 
 def build_model():
@@ -56,7 +76,7 @@ def build_model():
                                        return_attention_scores=True)
     print('done')
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    Dense_layer_1 = Dense(8336, activation='relu')(merged)
+    Dense_layer_1 = Dense(200, activation='relu')(merged)
 
     Dropout_layer_1 = Dropout(0.5)(Dense_layer_1)
     BiLSTM = Bidirectional(LSTM(8, return_sequences=True, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM23")(
@@ -67,7 +87,7 @@ def build_model():
                                        return_attention_scores=True)
     print('done')
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    Dense_layer_1 = Dense(8336, activation='relu')(merged)
+    Dense_layer_1 = Dense(200, activation='relu')(merged)
 
     dense = Dense(vocab_size, activation="relu")(Dense_layer_1)
 
@@ -105,7 +125,7 @@ def build_model():
     merged = Concatenate(axis=1)([BiLSTM, output_tensor])
     BiLSTM = Bidirectional(LSTM(8, return_sequences=False, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM24")(
         merged)
-    Dense_layer_1 = Dense(8336, activation='relu')(BiLSTM)
+    Dense_layer_1 = Dense(200, activation='relu')(BiLSTM)
     flatten = tf.keras.layers.Flatten()(Dense_layer_1)
 
     Dropout_layer_1 = Dropout(0.5)(flatten)
@@ -128,8 +148,7 @@ print(BSA.summary())
 ds = tf.data.Dataset.from_tensor_slices((X_train_token, y_train_label_NER, y_train_label_NER, label_train)).batch(16)
 ds_val = tf.data.Dataset.from_tensor_slices((X_val_token, y_val_NER, y_val_NER, label_val)).batch(16)
 
-
-# define metrics
+#define metrics
 class MultiClassConfusionMatrix(tf.keras.metrics.Metric):
 
     def __init__(self, num_classes, name="multi_class_confusion_matrix", **kwargs):
@@ -158,13 +177,14 @@ class MultiClassConfusionMatrix(tf.keras.metrics.Metric):
         """
         self.mctp_conf_matrix.assign(tf.zeros((self.num_classes, self.num_classes), dtype=tf.dtypes.int32))
 
-
-# define loss function for both events extraction and event relation extraction
+#define loss function for both events extraction and event relation extraction
 def custum_crf_loss(potentials, sequence_length, chain_kernel, y):
     return tf.reduce_mean(-crf_log_likelihood(potentials, y, sequence_length, chain_kernel)[0])
 
 
 loss_obj_cat = tf.keras.losses.SparseCategoricalCrossentropy()
+
+
 
 optimizer = tf.keras.optimizers.Adam()
 
@@ -261,8 +281,8 @@ for epoch in range(50):
     # for idx, item in enumerate(precision):
     #     prec[le.inverse_transform([idx])[0]] = item
 
-    # loss_crf.reset_states()
-    # loss_cat.reset_states()
+    loss_crf.reset_states()
+    loss_cat.reset_states()
     # train_acc_metric_rel.reset_states()
     # crf_train_acc_metric.reset_states()
     # metric.reset_states()
@@ -275,8 +295,10 @@ for epoch in range(50):
     labels_crf = []
     logits_re = []
     labels_re = []
-    logits_c = []
-    gr_truth_crf = []
+    logits_c=[]
+    gr_truth_crf=[]
+
+
 
     for i, (X_val_token, label_val_NER, label_val_NER, label_val) in enumerate(ds_val):
         progbar.update(i)
@@ -314,6 +336,7 @@ for epoch in range(50):
             # print(labels_crf)
             logits_c.append(list(itertools.chain(*logits_crf)))
 
+
     prediction_rp = list(itertools.chain(*logits_c))
     gt_crf = list(itertools.chain(*labels_crf))
     print('pprediction_rp')
@@ -326,8 +349,8 @@ for epoch in range(50):
     print(result_list)
     pred_re = list(itertools.chain(*logits_re))
     lbls_re = list(itertools.chain(*labels_re))
-    # print('prediction itterated')
-    # print(gt_re)
+        # print('prediction itterated')
+        # print(gt_re)
     report_crf = classification_report(gt_crf, result_list)
 
     print(report_crf)
@@ -335,10 +358,12 @@ for epoch in range(50):
     print(report_re)
 BSA.save('joined_crf')
 ds_test = tf.data.Dataset.from_tensor_slices((X_test_token, y_test_label_NER, y_test_label_NER, label_test)).batch(16)
-logits_crf = []
-labels_crf = []
-logits_c = []
+logits_crf=[]
+labels_crf=[]
+logits_c=[]
 
+BSA.save('joined_crf')
+print('=======================testing starts ====================')
 for i, (X_val_token, label_val_NER, label_val_NER, label_val) in enumerate(ds_test):
     progbar.update(i)
     crf_out, pred_out = BSA([X_val_token, label_val_NER], training=False)
@@ -394,7 +419,7 @@ report_crf = classification_report(gt_crf, result_list)
 print(report_crf)
 report_re = classification_report(lbls_re, pred_re)
 print(report_re)
-# Update val metrics
+        # Update val metrics
 #         val_acc_metric_rel.update_state(label_val, pred_out)
 #         crf_val_acc_metric.update_state(label_val_NER, viterbi_sequence, tf.sequence_mask(sequence_length, label_val_NER.shape[1]))
 #         metric_val.update_state(label_val, pred_out)
