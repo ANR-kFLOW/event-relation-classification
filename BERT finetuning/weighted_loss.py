@@ -1,5 +1,5 @@
 import os
-
+import itertools
 import numpy as np
 import pandas as pd
 import torch
@@ -17,8 +17,8 @@ label_all_tokens = False
 # read data, this setting is for training and testing on original data, change the data file to
 # joined_train and joined_val to test on the new dataset
 path_to_data = os.path.join('..', 'data')
-df_train = pd.read_csv(path_to_data+'/original_train.csv')
-df_val = pd.read_csv(path_to_data+'/original_val.csv')
+df_train = pd.read_csv(path_to_data+'/joined_train.csv')
+df_val = pd.read_csv(path_to_data+'/joined_val.csv')
 df_test = pd.read_csv(path_to_data+'/original_test.csv')
 df_train['tag'] = df_train['tag_2'].str.replace('O', '0')
 df_val['tag'] = df_val['tag_2'].str.replace('O', '0')
@@ -181,7 +181,11 @@ def train_loop(model, df_train, df_val):
             mask = train_data['attention_mask'].squeeze(1).to(device)
             input_id = train_data['input_ids'].squeeze(1).to(device)
 
+
+
+
             optimizer.zero_grad()
+            # loss, logits = model(input_id, mask, train_label)
             _, logits = model(input_id, mask, train_label)
             # loop over each sample in the  batch
             for i in range(logits.shape[0]):
@@ -204,7 +208,10 @@ def train_loop(model, df_train, df_val):
                 total_loss_train += loss.item()
 
 
-            loss.backward()
+            total_loss_tensor = torch.tensor(total_loss_train, requires_grad=True)
+
+
+            total_loss_tensor.backward()
             optimizer.step()
 
         model.eval()
@@ -272,7 +279,7 @@ BATCH_SIZE = 8
 model = BertModel()
 train_loop(model, df_train, df_val)
 
-import itertools
+
 # testing the model on the test set
 def evaluate(model, df_test):
     pred = []

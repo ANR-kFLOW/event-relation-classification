@@ -8,8 +8,8 @@ from sklearn import preprocessing
 import os
 max_len=512
 path_to_data = os.path.join('..', 'data')
-train = pd.read_csv(path_to_data+'/original_train.csv')
-val = pd.read_csv(path_to_data+'/original_val.csv')
+train = pd.read_csv(path_to_data+'/joined_train.csv')
+val = pd.read_csv(path_to_data+'/joined_val.csv')
 test = pd.read_csv(path_to_data+'/original_test.csv')
 print(train.columns)
 # train=pd.read_csv('original_train.csv')
