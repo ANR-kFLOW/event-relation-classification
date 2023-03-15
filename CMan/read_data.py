@@ -8,8 +8,8 @@ from sklearn import preprocessing
 import os
 max_len=512
 path_to_data = os.path.join('..', 'data')
-train = pd.read_csv(path_to_data+'/joined_train.csv')
-val = pd.read_csv(path_to_data+'/joined_val.csv')
+train = pd.read_csv(path_to_data+'/original_train.csv')
+val = pd.read_csv(path_to_data+'/original_val.csv')
 test = pd.read_csv(path_to_data+'/original_test.csv')
 print(train.columns)
 # train=pd.read_csv('original_train.csv')
@@ -53,28 +53,29 @@ vocab_size = len(words)
 print(vocab_size)
 
 # Tokenize the tags in the "tag" column
-tokenizer = Tokenizer(num_words=vocab_size, lower=1, oov_token='<OOV>')
+# tokenizer = Tokenizer(num_words=vocab_size, lower=1, oov_token='<OOV>')
 
 # words = [ 'n','intention', 'prevention', 'effect', 'condition', 'cause']
 
-# tokenizer = Tokenizer()
+tokenizer = Tokenizer()
 # tokenizer.word_index = {word: index for index, word in enumerate(words)}
 
 tokenizer.fit_on_texts(data['tags'])
+print(tokenizer.word_index)
 
 # max_len = max([len(x) for x in tokenizer.texts_to_sequences(data['tags'])])
 #
 # print(max_len)
 # Convert the tags to sequences and pad them
 y_val_NER = tokenizer.texts_to_sequences(y_val_NER)
-y_val_NER = pad_sequences(y_val_NER, maxlen=max_len, padding='post', value=1)
+y_val_NER = pad_sequences(y_val_NER, maxlen=max_len, padding='post')
 
 y_test_label_NER=tokenizer.texts_to_sequences(y_test_label_NER)
-y_test_label_NER = pad_sequences(y_test_label_NER, maxlen=max_len, padding='post', value=1)
+y_test_label_NER = pad_sequences(y_test_label_NER, maxlen=max_len, padding='post')
 
 
 y_train_label_NER=tokenizer.texts_to_sequences(y_train_label_NER)
-y_train_label_NER = pad_sequences(y_train_label_NER, maxlen=max_len, padding='post', value=1)
+y_train_label_NER = pad_sequences(y_train_label_NER, maxlen=max_len, padding='post')
 print(y_train_label_NER[1])
 print(tokenizer.word_index)
 # Print the resulting padded sequences
