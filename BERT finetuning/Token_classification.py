@@ -165,6 +165,8 @@ def train_loop(model, df_train, df_val):
                 label_clean = train_label[i][train_label[i] != -100]
 
                 predictions = logits_clean.argmax(dim=1)
+                print('predictions')
+                print(predictions)
                 acc = (predictions == label_clean).float().mean()
                 total_acc_train += acc
                 total_loss_train += loss.item()
@@ -192,22 +194,21 @@ def train_loop(model, df_train, df_val):
                 logits_clean = logits[i][val_label[i] != -100]
                 label_clean = val_label[i][val_label[i] != -100]
                 pre_report = logits_clean.detach().cpu().numpy()
-                print('----------------')
-                print(logits.shape[0])
-                print(logits.shape)
-                print('----------------')
-                print(logits_clean)
-                print('----------------')
+
+
+                print('-----label_clean--------')
                 print(label_clean)
-                print('-------------pre------------')
+
+                print('-----logits_clean-------')
+                print(logits_clean)
 
                 predictions = logits_clean.argmax(dim=1)
-
+                print('-------arg maxed------- ')
                 pred.append(np.argmax(pre_report, axis=1).flatten())
                 print(pred)
 
                 gt.append(label_clean.to('cpu').numpy())
-                print('------------')
+                print('----gt------')
                 print(gt)
 
                 acc = (predictions == label_clean).float().mean()

@@ -150,9 +150,9 @@ def train_loop(model, df_train, df_val):
     device = torch.device("cuda" if use_cuda else "cpu")
 
     # optimizer = SGD(model.parameters(), lr=LEARNING_RATE)
-    optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE)
-    # create a scheduler that reduces the learning rate by a factor of 0.1 every 10 epochs
-    scheduler = StepLR(optimizer, step_size=3, gamma=0.1)
+    optimizer = optim.AdamW(model.parameters(),LEARNING_RATE)
+    # create a scheduler that reduces the learning rate by a factor of 0.1 every 1 epochs
+    scheduler = StepLR(optimizer, step_size=1, gamma=0.1)
 
     if use_cuda:
         model = model.cuda()
@@ -234,15 +234,13 @@ def train_loop(model, df_train, df_val):
                 logits_clean = logits[i][val_label[i] != -100]
                 label_clean = val_label[i][val_label[i] != -100]
                 pre_report = logits_clean.detach().cpu().numpy()
-                print('----------------')
-                print(logits.shape[0])
-                print(logits.shape)
-                print('----------------')
+
+                print('------logits_clean-------')
                 print(logits_clean)
-                print('----------------')
+                print('------label_clean------')
                 print(label_clean)
                 loss = criterion(logits_clean, label_clean)
-                print('-------------pre------------')
+                print('-------------argmaxed------------')
 
                 predictions = logits_clean.argmax(dim=1)
 
@@ -250,7 +248,7 @@ def train_loop(model, df_train, df_val):
                 print(pred)
 
                 gt.append(label_clean.to('cpu').numpy())
-                print('------------')
+                print('-----gt-----')
                 print(gt)
 
                 acc = (predictions == label_clean).float().mean()
@@ -263,8 +261,8 @@ def train_loop(model, df_train, df_val):
         val_loss = total_loss_val / len(df_val)
         prediction_rp = list(itertools.chain(*pred))
         gt_re = list(itertools.chain(*gt))
-        print('prediction itterated')
-        print(gt_re)
+        print('prediction_rp')
+        print(prediction_rp)
         report = classification_report(gt_re, prediction_rp)
         print(report)
 
@@ -272,7 +270,7 @@ def train_loop(model, df_train, df_val):
             f'Epochs: {epoch_num + 1} | Loss: {total_loss_train / len(df_train): .6f} | Accuracy: {total_acc_train / len(df_train): .6f} | Val_Loss: {total_loss_val / len(df_val): .6f} | Accuracy: {total_acc_val / len(df_val): .6f}')
 
 
-LEARNING_RATE = 5e-3
+LEARNING_RATE = 0.1
 EPOCHS = 10
 BATCH_SIZE = 8
 
