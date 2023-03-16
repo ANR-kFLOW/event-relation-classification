@@ -17,8 +17,8 @@ label_all_tokens = False
 # read data, this setting is for training and testing on original data, change the data file to
 # joined_train and joined_val to test on the new dataset
 path_to_data = os.path.join('..', 'data')
-df_train = pd.read_csv(path_to_data+'/joined_train.csv')
-df_val = pd.read_csv(path_to_data+'/joined_val.csv')
+df_train = pd.read_csv(path_to_data+'/original_train.csv')
+df_val = pd.read_csv(path_to_data+'/original_val.csv')
 df_test = pd.read_csv(path_to_data+'/original_test.csv')
 df_train['tag'] = df_train['tag_2'].str.replace('O', '0')
 df_val['tag'] = df_val['tag_2'].str.replace('O', '0')
@@ -152,7 +152,7 @@ def train_loop(model, df_train, df_val):
     # optimizer = SGD(model.parameters(), lr=LEARNING_RATE)
     optimizer = optim.AdamW(model.parameters(),LEARNING_RATE)
     # create a scheduler that reduces the learning rate by a factor of 0.1 every 1 epochs
-    scheduler = StepLR(optimizer, step_size=1, gamma=0.1)
+    scheduler = StepLR(optimizer, step_size=3, gamma=0.1)
 
     if use_cuda:
         model = model.cuda()
@@ -326,9 +326,9 @@ def evaluate(model, df_test):
     print(report)
 #
 #
-# evaluate(model, df_test)
+evaluate(model, df_test)
 #
-PATH = "entire_model_token_classification_joined_weighted_loss.pt"
+# PATH = "entire_model_token_classification_joined_weighted_loss.pt"
 
 # Save the model
-torch.save(model, PATH)
+# torch.save(model, PATH)
