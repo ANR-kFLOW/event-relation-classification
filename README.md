@@ -8,13 +8,14 @@ Semantically-precise Event Relation Classification**.
 > Submitted at Semantic Methods for Events and Stories (SEMMES) workshop 2023
 
 
-BERT\SpanBERT models fine-tuning for token And sentence classification.
+
     pip install -r requirements.txt
 
 
 ## BERT finetuning 
-
-TBW small description of what it is doing
+BERT\SpanBERT models fine-tuning for token And sentence classification.
+Relation_extraction: Run sequence_classification.py
+Event_extraction: Run weighted_loss.py
 
 TBW list of commands for running training and inference
 
