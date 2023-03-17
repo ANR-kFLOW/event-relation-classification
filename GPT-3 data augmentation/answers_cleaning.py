@@ -1,9 +1,7 @@
 import re
-
 import nltk
 import pandas as pd
 from nltk import tokenize
-
 nltk.download('punkt')
 
 sentences = pd.read_csv('/Users/youssrarebboud/Desktop/intention_left.csv')
