@@ -14,12 +14,8 @@ Semantically-precise Event Relation Classification**.
 
 ## BERT finetuning 
 BERT\SpanBERT models fine-tuning for token And sentence classification.
-
-Relation_extraction: Run sequence_classification.py
-
-Event_extraction: Run weighted_loss.py
-
-TBW list of commands for running training and inference
+To fine-tune BERT/SpanBERT for token classification, run python sequence_classification.py --model_name_or_path bert-base-cased --task_name ner --do_train --do_eval --data_dir ./data --per_device_train_batch_size 16 --learning_rate 5e-5 --num_train_epochs 3 --output_dir ./output_dir.
+To fine-tune BERT/SpanBERT for sentence classification, run python sequence_classification.py --model_name_or_path bert-base-cased --task_name text_classification --do_train --do_eval --data_dir ./data --per_device_train_batch_size 16 --learning_rate 5e-5 --num_train_epochs 3 --output_dir ./output_dir.
 
 # CMan
 
