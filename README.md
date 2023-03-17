@@ -36,7 +36,9 @@ Joint relation extraction and entity recognition with a Conditional random field
 Scripts for generating new sentences involving event relations, starting from definitions and examples.
 
  --generate_sentences: Run sentence_generation.py
+ 
  --generate event triggers for given sentences: Run Event_triggers_generation_by_GPT-3.py
+ 
  --clean generated events: Run answers_cleaning.py
 
 # Data
