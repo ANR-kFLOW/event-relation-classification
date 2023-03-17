@@ -14,19 +14,11 @@ Semantically-precise Event Relation Classification**.
 
 ## BERT finetuning 
 BERT\SpanBERT models fine-tuning for token And sentence classification.
+ 
 
-To fine-tune BERT/SpanBERT for token classification, 
+--Relation_extraction: Run sequence_classification.py
 
-run python weighted_loss.py 
---model_name_or_path bert-base-cased/
---task_name ner
---do_train 
---do_eval 
---data_dir ./data 
---per_device_train_batch_size 16 
---learning_rate 0.1
---num_train_epochs 10 
---output_dir ./output_dir.
+--Event_extraction: Run weighted_loss.py
 
 
 # CMan
@@ -43,7 +35,9 @@ Joint relation extraction and entity recognition with a Conditional random field
 
 Scripts for generating new sentences involving event relations, starting from definitions and examples.
 
-TBW list of commands for running it
+ --generate_sentences: Run sentence_generation.py
+ --generate event triggers for given sentences: Run Event_triggers_generation_by_GPT-3.py
+ --clean generated events: Run answers_cleaning.py
 
 # Data
 
