@@ -1,23 +1,23 @@
+import os
+
 import pandas as pd
-from keras.preprocessing.text import text_to_word_sequence
-import numpy as np
-from sklearn.model_selection import train_test_split
 from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.text import text_to_word_sequence
 from keras_preprocessing.sequence import pad_sequences
 from sklearn import preprocessing
-import os
-max_len=512
+
+max_len = 512
 path_to_data = os.path.join('..', 'data')
-train = pd.read_csv(path_to_data+'/joined_train.csv')
-val = pd.read_csv(path_to_data+'/joined_val.csv')
-test = pd.read_csv(path_to_data+'/original_test.csv')
+train = pd.read_csv(path_to_data + '/joined_train.csv')
+val = pd.read_csv(path_to_data + '/joined_val.csv')
+test = pd.read_csv(path_to_data + '/original_test.csv')
 print(train.columns)
 # train=pd.read_csv('original_train.csv')
 # val=pd.read_csv('original_val.csv')
 # test=pd.read_csv('original_test.csv')
-train['tags']=train['tag_2'].str.replace('O', '0')
-val['tags']=val['tag_2'].str.replace('O', '0')
-test['tags']=test['tag_2'].str.replace('O', '0')
+train['tags'] = train['tag_2'].str.replace('O', '0')
+val['tags'] = val['tag_2'].str.replace('O', '0')
+test['tags'] = test['tag_2'].str.replace('O', '0')
 
 data = pd.concat([train, val], axis=0)
 
@@ -29,7 +29,6 @@ y_train_label_NER = train['tags']
 
 print(y_train_label_NER)
 
-
 X_val_token = val['sentence']
 y_val_NER = val['tags']
 
@@ -38,14 +37,11 @@ y_test_label_NER = test['tags']
 
 label_train = train['label']
 
+label_val = val['label']
 
-label_val=val['label']
-
-label_test=test['label']
+label_test = test['label']
 
 vocab = ' '.join(data['tags'])
-
-
 
 words = set(text_to_word_sequence(vocab))
 print('words', words)
@@ -70,11 +66,10 @@ print(tokenizer.word_index)
 y_val_NER = tokenizer.texts_to_sequences(y_val_NER)
 y_val_NER = pad_sequences(y_val_NER, maxlen=max_len, padding='post')
 
-y_test_label_NER=tokenizer.texts_to_sequences(y_test_label_NER)
+y_test_label_NER = tokenizer.texts_to_sequences(y_test_label_NER)
 y_test_label_NER = pad_sequences(y_test_label_NER, maxlen=max_len, padding='post')
 
-
-y_train_label_NER=tokenizer.texts_to_sequences(y_train_label_NER)
+y_train_label_NER = tokenizer.texts_to_sequences(y_train_label_NER)
 y_train_label_NER = pad_sequences(y_train_label_NER, maxlen=max_len, padding='post')
 print(y_train_label_NER[1])
 print(tokenizer.word_index)
@@ -95,10 +90,15 @@ len(le.transform(data['label']))
 # y_train_label_NER= tokenizer2.texts_to_sequences(y_train_label_NER)
 # y_val_NER = tokenizer2.texts_to_sequences(y_val_NER)
 #
-label_train=le.transform(label_train)
-label_val=le.transform(label_val)
-label_test=le.transform(label_test)
+label_train = le.transform(label_train)
+label_val = le.transform(label_val)
+label_test = le.transform(label_test)
 #
+vocab = ' '.join(data['tags'])
+
+words = set(text_to_word_sequence(vocab))
+vocab_size = len(words)
+print('vocan sizeof tags', vocab_size)
 #
 
 #
@@ -118,4 +118,3 @@ label_test=le.transform(label_test)
 # print("label_train:", label_train)
 # print("label_val:", label_val)
 # print(le.inverse_transform(label_val))
-

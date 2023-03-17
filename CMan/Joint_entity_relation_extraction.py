@@ -1,137 +1,51 @@
-import itertools
 import warnings
-
-import tensorflow as tf
-import tensorflow_hub as hub
-from bert import bert_tokenization
+from tensorflow_addons.text.crf import crf_log_likelihood
+warnings.filterwarnings("ignore")
 from sklearn.metrics import classification_report
-from tensorflow.keras import Model
+import itertools
 from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, Dense, Concatenate, \
     MultiHeadAttention, Dropout
-from tensorflow.python.client import device_lib
-from tensorflow_addons.text.crf import crf_log_likelihood
-from tf2crf import CRF
-
+from tensorflow.keras import Model
+import tensorflow_hub as hub
 from read_data import *
+import tensorflow as tf
+from tf2crf import CRF
+from bert import bert_tokenization
+from model import *
+
+# os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+
+
+from tensorflow.python.client import device_lib
+
+print(device_lib.list_local_devices())
+# Set the device to use for computation
+physical_devices = tf.config.list_physical_devices('GPU')
+print('physical_devices', physical_devices)
+tf.config.experimental.set_visible_devices(physical_devices, 'GPU')
 
 # os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 # os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 BertTokenizer = bert_tokenization.FullTokenizer
 warnings.filterwarnings("ignore")
-
-print(device_lib.list_local_devices())
-# Set the device to use for computation
-physical_devices=tf.config.list_physical_devices('GPU')
-print('physical_devices',physical_devices)
-tf.config.experimental.set_visible_devices(physical_devices, 'GPU')
-
-
-bert_preprocess = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
-bert_encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/4", trainable=True)
-bert_layer = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/1",
-                            trainable=True)
-
-vocab = ' '.join(data['tags'])
-
-
-
-words = set(text_to_word_sequence(vocab))
-vocab_size = len(words)
-print('vocan sizeof tags',vocab_size)
-
-
-
-def build_model():
-    # preprocessing input sentences and get bert word embeddings
-
-    text_input = tf.keras.layers.Input(shape=(), dtype=tf.string, name='text')
-    preprocessed_text = bert_preprocess(text_input)
-    outputs = bert_encoder(preprocessed_text)
-    outputs = outputs['sequence_output']
-
-    print('ok')
-    BiLSTM = Bidirectional(LSTM(128, return_sequences=True, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM")(
-        outputs)
-    print('here')
-    att_layer = MultiHeadAttention(
-        num_heads=4, key_dim=2, value_dim=2)
-    output_tensor, weights = att_layer(BiLSTM, BiLSTM,
-                                       return_attention_scores=True)
-    print('done')
-    merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    Dense_layer_1 = Dense(200, activation='relu')(merged)
-
-    Dropout_layer_1 = Dropout(0.5)(Dense_layer_1)
-    BiLSTM = Bidirectional(LSTM(8, return_sequences=True, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM23")(
-        Dropout_layer_1)
-    att_layer = MultiHeadAttention(
-        num_heads=4, key_dim=2, value_dim=2)
-    output_tensor, weights = att_layer(BiLSTM, BiLSTM,
-                                       return_attention_scores=True)
-    print('done')
-    merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    Dense_layer_1 = Dense(200, activation='relu')(merged)
-
-    dense = Dense(vocab_size, activation="relu")(Dense_layer_1)
-
-    crf = CRF(units=vocab_size, dtype='float32', name='crf_layer')
-    output = crf(dense)
-
-    input_layer2 = Input(shape=(None,), name="Input_layer_BLA")
-
-    embedding_layer = Embedding(input_dim=2000, output_dim=16,
-                                # weights=[embedding_weights],
-                                input_length=200,
-                                trainable=False
-                                )(input_layer2)
-    BiLSTM = Bidirectional(LSTM(8, return_sequences=True, recurrent_dropout=0.2, dropout=0.2), name="BiLSTMBLA")(
-        embedding_layer)
-    # keys, values = tf.split(BiLSTM, num_or_size_splits=2, axis=1)
-    att_layer = MultiHeadAttention(
-        num_heads=4, key_dim=2, value_dim=2)
-    output_tensor, weights = att_layer(query=outputs, value=BiLSTM, key=BiLSTM, return_attention_scores=True)
-
-    merged = Concatenate(axis=1)([output_tensor, outputs])
-    Dense_layer_1 = Dense(16, activation='relu')(merged)
-    # merged_concat=keras.layers.Concatenate(axis=1)([Dense_layer_1, BSA])
-    BiLSTM = Bidirectional(LSTM(8, return_sequences=True, recurrent_dropout=0.2, dropout=0.2),
-                           name="BiLSTMBLAe")(
-        Dense_layer_1)
-    merged = Concatenate(axis=1)([BiLSTM, embedding_layer])
-    BiLSTM = Bidirectional(LSTM(8, return_sequences=True, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM2")(
-        merged)
-    att_layer = MultiHeadAttention(
-        num_heads=4, key_dim=2, value_dim=2)
-
-    output_tensor, weights = att_layer(query=BiLSTM, value=BiLSTM, return_attention_scores=True)
-
-    merged = Concatenate(axis=1)([BiLSTM, output_tensor])
-    BiLSTM = Bidirectional(LSTM(8, return_sequences=False, recurrent_dropout=0.2, dropout=0.2), name="BiLSTM24")(
-        merged)
-    Dense_layer_1 = Dense(200, activation='relu')(BiLSTM)
-    flatten = tf.keras.layers.Flatten()(Dense_layer_1)
-
-    Dropout_layer_1 = Dropout(0.5)(flatten)
-    Dense_layer_2 = Dense(5, activation='softmax', name='second_output')(Dropout_layer_1)
-
-    model = Model(
-        inputs=[text_input, input_layer2],
-        outputs=[output, Dense_layer_2], name="multioutput")
-    # model_f=ModelWithCRFLoss(model, sparse_target=True)
-
-    return model
-
+#
+# print(device_lib.list_local_devices())
+# # Set the device to use for computation
+# physical_devices=tf.config.list_physical_devices('GPU')
+# print('physical_devices',physical_devices)
+# tf.config.experimental.set_visible_devices(physical_devices, 'GPU')
 
 # build_model()
 BSA = build_model()
 print(BSA.summary())
 
 # data loading
-
 ds = tf.data.Dataset.from_tensor_slices((X_train_token, y_train_label_NER, y_train_label_NER, label_train)).batch(16)
 ds_val = tf.data.Dataset.from_tensor_slices((X_val_token, y_val_NER, y_val_NER, label_val)).batch(16)
+ds_test = tf.data.Dataset.from_tensor_slices((X_test_token, y_test_label_NER, y_test_label_NER, label_test)).batch(16)
 
-#define metrics
+# define metrics
 class MultiClassConfusionMatrix(tf.keras.metrics.Metric):
 
     def __init__(self, num_classes, name="multi_class_confusion_matrix", **kwargs):
@@ -160,14 +74,13 @@ class MultiClassConfusionMatrix(tf.keras.metrics.Metric):
         """
         self.mctp_conf_matrix.assign(tf.zeros((self.num_classes, self.num_classes), dtype=tf.dtypes.int32))
 
-#define loss function for both events extraction and event relation extraction
+
+# define loss function for both events extraction and event relation extraction
 def custum_crf_loss(potentials, sequence_length, chain_kernel, y):
     return tf.reduce_mean(-crf_log_likelihood(potentials, y, sequence_length, chain_kernel)[0])
 
 
 loss_obj_cat = tf.keras.losses.SparseCategoricalCrossentropy()
-
-
 
 optimizer = tf.keras.optimizers.Adam()
 
@@ -186,8 +99,8 @@ crf_val_acc_metric = tf.keras.metrics.Accuracy(name='accuracyval')
 Precision = tf.keras.metrics.Precision()
 metric = MultiClassConfusionMatrix(num_classes=5)
 metric_val = MultiClassConfusionMatrix(num_classes=5)
-
 progbar = tf.keras.utils.Progbar(len(ds))
+
 for epoch in range(50):
     print("\nStart of epoch %d" % (epoch,))
 
@@ -278,10 +191,8 @@ for epoch in range(50):
     labels_crf = []
     logits_re = []
     labels_re = []
-    logits_c=[]
-    gr_truth_crf=[]
-
-
+    logits_c = []
+    gr_truth_crf = []
 
     for i, (X_val_token, label_val_NER, label_val_NER, label_val) in enumerate(ds_val):
         progbar.update(i)
@@ -295,9 +206,9 @@ for epoch in range(50):
         # viterbi_sequence, viterbi_score = crf_layer.viterbi_decode(y_pred, sequence_lengths)
         # print('viterbi_sequence',viterbi_sequence)
         for i in range(viterbi_sequence.shape[0]):
-            label_clean = label_val_NER[i][label_val_NER[i] != 9]
+            label_clean = label_val_NER[i][label_val_NER[i] != 0]
 
-            logits_clean = viterbi_sequence[i][label_val_NER[i] != 9]
+            logits_clean = viterbi_sequence[i][label_val_NER[i] != 0]
 
             # print('len label_clean', len(label_clean))
             # print('len logits',len(logits_clean))
@@ -319,7 +230,6 @@ for epoch in range(50):
             # print(labels_crf)
             logits_c.append(list(itertools.chain(*logits_crf)))
 
-
     prediction_rp = list(itertools.chain(*logits_c))
     gt_crf = list(itertools.chain(*labels_crf))
     print('pprediction_rp')
@@ -332,18 +242,17 @@ for epoch in range(50):
     print(result_list)
     pred_re = list(itertools.chain(*logits_re))
     lbls_re = list(itertools.chain(*labels_re))
-        # print('prediction itterated')
-        # print(gt_re)
+    # print('prediction itterated')
+    # print(gt_re)
     report_crf = classification_report(gt_crf, result_list)
 
     print(report_crf)
     report_re = classification_report(lbls_re, pred_re)
     print(report_re)
 BSA.save('joined_crf')
-ds_test = tf.data.Dataset.from_tensor_slices((X_test_token, y_test_label_NER, y_test_label_NER, label_test)).batch(16)
-logits_crf=[]
-labels_crf=[]
-logits_c=[]
+logits_crf = []
+labels_crf = []
+logits_c = []
 
 BSA.save('joined_crf')
 print('=======================testing starts ====================')
@@ -359,9 +268,9 @@ for i, (X_val_token, label_val_NER, label_val_NER, label_val) in enumerate(ds_te
     # viterbi_sequence, viterbi_score = crf_layer.viterbi_decode(y_pred, sequence_lengths)
     # print('viterbi_sequence',viterbi_sequence)
     for i in range(viterbi_sequence.shape[0]):
-        label_clean = label_val_NER[i][label_val_NER[i] != 9]
+        label_clean = label_val_NER[i][label_val_NER[i] != 0]
 
-        logits_clean = viterbi_sequence[i][label_val_NER[i] != 9]
+        logits_clean = viterbi_sequence[i][label_val_NER[i] != 0]
 
         # print('len label_clean', len(label_clean))
         # print('len logits',len(logits_clean))
@@ -402,35 +311,5 @@ report_crf = classification_report(gt_crf, result_list)
 print(report_crf)
 report_re = classification_report(lbls_re, pred_re)
 print(report_re)
-        # Update val metrics
-#         val_acc_metric_rel.update_state(label_val, pred_out)
-#         crf_val_acc_metric.update_state(label_val_NER, viterbi_sequence, tf.sequence_mask(sequence_length, label_val_NER.shape[1]))
-#         metric_val.update_state(label_val, pred_out)
-# #
-#     recal_val={}
-#     prec_val={}
-#     val_acc = val_acc_metric_rel.result()
-#     crf_val_acc=crf_val_acc_metric.result()
-#     metric_val_re=metric_val.result()
-#     recall_val = np.diag(metric_val_re) / np.sum(metric_val_re, axis=1)
-#     precision_val = np.diag(metric_val_re) / np.sum(metric_val_re, axis=0)
-#     for idx, item in enumerate(recall_val):
-#         recal_val[le.inverse_transform([idx])[0]] = item
-#     for idx, item in enumerate(precision_val):
-#         prec_val[le.inverse_transform([idx])[0]] = item
-#     val_acc_metric_rel.reset_states()
-#     crf_val_acc_metric.reset_states()
-#     metric_val.reset_states()
-#
-# #
-# #
-# #
-#     print("Validation acc: %.4f" % (float(val_acc),))
-#     print("crf Validation acc: %.4f" % (float(crf_val_acc),))
-#     print("precision: %.4f" )
-#     print(prec_val)
-#     print("recall: %.4f")
-#     print(recal_val)
-
 
 BSA.save('joined_crf')
