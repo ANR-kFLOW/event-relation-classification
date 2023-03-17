@@ -119,6 +119,6 @@ print(f"Graph g has {len(g)} statements.")
 #Print out the entire Graph in the RDF Turtle format
 grph= g.serialize(format="turtle")
 out = grph.replace('"<<', '<<').replace('>>"', '>>')
-with open(f"{out_folder}/synthetic.ttl", 'w') as outfile:
+with open(f"{out_folder}/synthetic_plus_merged_datasets.ttl", 'w') as outfile:
     outfile.write(out)
 #visualize(g)

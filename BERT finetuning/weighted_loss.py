@@ -1,5 +1,5 @@
-import os
 import itertools
+import os
 import numpy as np
 import pandas as pd
 import torch
@@ -17,14 +17,13 @@ label_all_tokens = False
 # read data, this setting is for training and testing on original data, change the data file to
 # joined_train and joined_val to test on the new dataset
 path_to_data = os.path.join('..', 'data')
-df_train = pd.read_csv(path_to_data+'/original_train.csv')
-df_val = pd.read_csv(path_to_data+'/original_val.csv')
-df_test = pd.read_csv(path_to_data+'/original_test.csv')
+df_train = pd.read_csv(path_to_data + '/original_train.csv')
+df_val = pd.read_csv(path_to_data + '/original_val.csv')
+df_test = pd.read_csv(path_to_data + '/original_test.csv')
 df_train['tag'] = df_train['tag_2'].str.replace('O', '0')
 df_val['tag'] = df_val['tag_2'].str.replace('O', '0')
 df_test['tag'] = df_test['tag_2'].str.replace('O', '0')
 labels = [word_tokenize(i) for i in df_train['tag'].values.tolist()]
-
 
 # Check how many labels are there in the dataset
 unique_labels = set()
@@ -33,7 +32,7 @@ for lb in labels:
     [unique_labels.add(i) for i in lb if i not in unique_labels]
 
 print(unique_labels)
-labels_to_ids={'0': 0, 'trigger1': 1, 'effect': 2}
+labels_to_ids = {'0': 0, 'trigger1': 1, 'effect': 2}
 
 # Map each label into its id representation and vice versa
 labels_to_ids = {k: v for v, k in enumerate(sorted(unique_labels))}
@@ -42,15 +41,10 @@ ids_to_labels = {v: k for v, k in enumerate(sorted(unique_labels))}
 print(labels_to_ids)
 print(ids_to_labels)
 
+check_point_Span_BERT = 'SpanBERT/spanbert-base-cased'
+check_point_BERT = 'bert-base-cased'
 
-
-
-
-
-
-
-
-tokenizer = BertTokenizerFast.from_pretrained('bert-base-cased')
+tokenizer = BertTokenizerFast.from_pretrained(check_point_BERT)
 
 
 def align_label(texts, labels):
@@ -91,8 +85,6 @@ class DataSequence(torch.utils.data.Dataset):
                       txt]
         self.labels = [align_label(i, j) for i, j in zip(txt, lb)]
 
-
-
     def __len__(self):
         return len(self.labels)
 
@@ -107,6 +99,8 @@ class DataSequence(torch.utils.data.Dataset):
         batch_labels = self.get_batch_labels(idx)
 
         return batch_data, batch_labels
+
+
 #
 # def masked_loss(logits, targets, ignore_index):
 #     # Create a mask for the ignored classes
@@ -127,17 +121,13 @@ class BertModel(torch.nn.Module):
     def __init__(self):
         super(BertModel, self).__init__()
 
-        self.bert = BertForTokenClassification.from_pretrained('bert-base-cased', num_labels=len(unique_labels))
+        self.bert = BertForTokenClassification.from_pretrained(check_point_BERT, num_labels=len(unique_labels))
 
     def forward(self, input_id, mask, tag):
         output = self.bert(input_ids=input_id, attention_mask=mask, labels=tag, return_dict=False)
         # output2=
 
         return output
-
-
-a = []
-
 
 def train_loop(model, df_train, df_val):
     train_dataset = DataSequence(df_train)
@@ -150,7 +140,7 @@ def train_loop(model, df_train, df_val):
     device = torch.device("cuda" if use_cuda else "cpu")
 
     # optimizer = SGD(model.parameters(), lr=LEARNING_RATE)
-    optimizer = optim.AdamW(model.parameters(),LEARNING_RATE)
+    optimizer = optim.AdamW(model.parameters(), LEARNING_RATE)
     # create a scheduler that reduces the learning rate by a factor of 0.1 every 1 epochs
     scheduler = StepLR(optimizer, step_size=3, gamma=0.1)
 
@@ -181,9 +171,6 @@ def train_loop(model, df_train, df_val):
             mask = train_data['attention_mask'].squeeze(1).to(device)
             input_id = train_data['input_ids'].squeeze(1).to(device)
 
-
-
-
             optimizer.zero_grad()
             # loss, logits = model(input_id, mask, train_label)
             _, logits = model(input_id, mask, train_label)
@@ -200,16 +187,12 @@ def train_loop(model, df_train, df_val):
                 print('loss for one example')
                 print(loss)
 
-
-
                 predictions = logits_clean.argmax(dim=1)
                 acc = (predictions == label_clean).float().mean()
                 total_acc_train += acc
                 total_loss_train += loss.item()
 
-
             total_loss_tensor = torch.tensor(total_loss_train, requires_grad=True)
-
 
             total_loss_tensor.backward()
             optimizer.step()
@@ -324,6 +307,8 @@ def evaluate(model, df_test):
     print(report)
     print(f'Test Accuracy: {total_acc_test / len(df_test): .6f}')
     print(report)
+
+
 #
 #
 evaluate(model, df_test)

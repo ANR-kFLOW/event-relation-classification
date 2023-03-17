@@ -11,6 +11,8 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import BertForTokenClassification
 from transformers import BertTokenizerFast
+check_point_Span_BERT='SpanBERT/spanbert-base-cased'
+check_point_BERT='bert-base-cased'
 
 ROOT = 'data/'
 
@@ -35,7 +37,7 @@ labels_to_ids = {k: v for v, k in enumerate(sorted(unique_labels))}
 ids_to_labels = {v: k for v, k in enumerate(sorted(unique_labels))}
 print(labels_to_ids)
 
-tokenizer = BertTokenizerFast.from_pretrained('bert-base-cased')
+tokenizer = BertTokenizerFast.from_pretrained(check_point_BERT)
 
 
 def align_label(texts, labels):
@@ -112,17 +114,13 @@ class BertModel(torch.nn.Module):
     def __init__(self):
         super(BertModel, self).__init__()
 
-        self.bert = BertForTokenClassification.from_pretrained('bert-base-cased', num_labels=len(unique_labels))
+        self.bert = BertForTokenClassification.from_pretrained(check_point_BERT, num_labels=len(unique_labels))
 
     def forward(self, input_id, mask, tag):
         output = self.bert(input_ids=input_id, attention_mask=mask, labels=tag, return_dict=False)
         # output2=
 
         return output
-
-
-a = []
-
 
 def train_loop(model, df_train, df_val):
     train_dataset = DataSequence(df_train)
