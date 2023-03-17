@@ -14,8 +14,10 @@ Semantically-precise Event Relation Classification**.
 
 ## BERT finetuning 
 BERT\SpanBERT models fine-tuning for token And sentence classification.
->Relation_extraction: Run sequence_classification.py
->Event_extraction: Run weighted_loss.py
+
+Relation_extraction: Run sequence_classification.py
+
+Event_extraction: Run weighted_loss.py
 
 TBW list of commands for running training and inference
 
