@@ -8,8 +8,7 @@ Semantically-precise Event Relation Classification**.
 > Submitted at Semantic Methods for Events and Stories (SEMMES) workshop 2023
 
 
-Install the required dependencies for all code
-
+BERT\SpanBERT models fine-tuning for token And sentence classification.
     pip install -r requirements.txt
 
 
