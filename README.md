@@ -20,6 +20,7 @@ BERT\SpanBERT models fine-tuning for token And sentence classification.
 
 -- inference on relation classification: inference.py 
 
+
 Link to the model(https://drive.google.com/drive/folders/1R23FpzZr96ugY4qxSs7j7o54D5kL0BI3?usp=sharing)
 
 --Event_extraction: Run weighted_loss.py
