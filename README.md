@@ -49,7 +49,7 @@ Replication of the paper:
 Joint relation extraction and entity recognition with a Conditional random field **(CRF)**.
 
 # GPT-3 data augmentation
-Scripts for generating new sentences involving event relations, starting from FARO definitions and examples from an existing Dataset.
+Scripts for generating new sentences involving event relations, starting from  <a href="https://anr-kflow.github.io/faro/">FARO</a> definitions and examples from an existing Dataset.
 <h2>Sentence Generation</h2>
 <p>To generate new sentences involving event relations, you can use the following command:</p>
 
