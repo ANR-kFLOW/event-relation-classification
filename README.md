@@ -1,24 +1,5 @@
 
-  
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#Event Relation Classification">About The Project</a>
-     
-    </li>
-    <li>
-      
-      <ul>
-        <li><a href="#BERT finetuning">Prerequisites</a></li>
-        <li><a href="#CMan">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#GPT-3 data augmentation">Usage</a></li>
-    
-  </ol>
-</details>
+
 
 <!-- Event Relation Classification -->
 # Event Relation Classification
