@@ -5,19 +5,17 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
+      <a href="#Event Relation Classification">About The Project</a>
+     
     </li>
     <li>
-      <a href="Event Relation Classification">Getting Started</a>
+      
       <ul>
         <li><a href="#BERT finetuning">Prerequisites</a></li>
         <li><a href="#CMan">Installation</a></li>
       </ul>
     </li>
-    <li><a href="## GPT-3 data augmentation">Usage</a></li>
+    <li><a href="#GPT-3 data augmentation">Usage</a></li>
     
   </ol>
 </details>
