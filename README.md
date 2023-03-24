@@ -25,6 +25,7 @@ Semantically-precise Event Relation Classification**.
 ## BERT finetuning 
 BERT\SpanBERT models fine-tuning for token And sentence classification.
  
+<p>To fine-tune BERT models for relation extraction, you can use the <code>sequence_classification.py</code> script. This script takes in a dataset of sentence pairs and their relation labels and fine-tunes a BERT model for relation classification.</p>
 
 --Relation_extraction: Run sequence_classification.py 
 
