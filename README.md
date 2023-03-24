@@ -50,7 +50,7 @@ Joint relation extraction and entity recognition with a Conditional random field
 
 # GPT-3 data augmentation
 Scripts for generating new sentences involving event relations, starting from FARO definitions and examples from an existing Dataset.
-h2>Sentence Generation</h2>
+<h2>Sentence Generation</h2>
 <p>To generate new sentences involving event relations, you can use the following command:</p>
 
 <pre><code>python sentence_generation.py</code></pre>
