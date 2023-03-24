@@ -55,7 +55,7 @@ Scripts for generating new sentences involving event relations, starting from FA
 
 <pre><code>python sentence_generation.py</code></pre>
 
-<p>This script will take as input a CSV file containing a list of examples with the desired event relation, and output a new CSV file containing the original data as well as the newly generated sentences.</p>
+<p>This script will take as input a CSV file containing a list of examples with the desired event relation, and output a new CSV file containing the  newly generated sentences.</p>
 
 <h2>Event Triggers Generation</h2>
 <p>To generate event triggers for a given set of sentences, you can use the following command:</p>
