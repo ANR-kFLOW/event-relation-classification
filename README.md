@@ -1,4 +1,10 @@
+<!-- Table of Contents -->
+## Table of Contents
 
+- [Event Relation Classification](#event-relation-classification)
+- [CMan](#cman)
+- [GPT-3 data augmentation](#gpt-3-data-augmentation)
+- [Data](#data)
 
 
 <!-- Event Relation Classification -->
