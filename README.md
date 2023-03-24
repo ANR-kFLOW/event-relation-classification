@@ -35,14 +35,7 @@ BERT\SpanBERT models fine-tuning for token And sentence classification.
 	<li><a href="https://drive.google.com/drive/folders/1R23FpzZr96ugY4qxSs7j7o54D5kL0BI3?usp=sharing">BERT for relation classification</a></li>
 </ul>
 
---Relation_extraction: Run sequence_classification.py 
-
--- inference on relation classification: inference.py 
-
-
-Link to the model(https://drive.google.com/drive/folders/1R23FpzZr96ugY4qxSs7j7o54D5kL0BI3?usp=sharing)
-
---Event_extraction: Run weighted_loss.py
+<p>To fine-tune BERT models for event extraction, you can use the <code>weighted_loss.py</code> script. This script takes in a dataset of sentences and their token labels and fine-tunes a BERT model for event extraction(token classification).</p>
 
 
 # CMan
