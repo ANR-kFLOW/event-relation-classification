@@ -27,6 +27,14 @@ BERT\SpanBERT models fine-tuning for token And sentence classification.
  
 <p>To fine-tune BERT models for relation extraction, you can use the <code>sequence_classification.py</code> script. This script takes in a dataset of sentence pairs and their relation labels and fine-tunes a BERT model for relation classification.</p>
 
+<p>To perform inference on the fine-tuned model, you can use the <code>inference.py</code> script. This script takes in a dataset of sentence pairs and performs relation classification using the fine-tuned BERT model.</p>
+
+<p>You can download pre-trained BERT models from the following link:</p>
+
+<ul>
+	<li><a href="https://drive.google.com/drive/folders/1R23FpzZr96ugY4qxSs7j7o54D5kL0BI3?usp=sharing">BERT for relation classification</a></li>
+</ul>
+
 --Relation_extraction: Run sequence_classification.py 
 
 -- inference on relation classification: inference.py 
