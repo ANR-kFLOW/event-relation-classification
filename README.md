@@ -49,14 +49,32 @@ Replication of the paper:
 Joint relation extraction and entity recognition with a Conditional random field **(CRF)**.
 
 # GPT-3 data augmentation
+Scripts for generating new sentences involving event relations, starting from FARO definitions and examples from an existing Dataset.
+h2>Sentence Generation</h2>
+<p>To generate new sentences involving event relations, you can use the following command:</p>
 
-Scripts for generating new sentences involving event relations, starting from definitions and examples.
+<pre><code>python sentence_generation.py</code></pre>
 
- --generate_sentences: Run sentence_generation.py
- 
- --generate event triggers for given sentences: Run Event_triggers_generation_by_GPT-3.py
- 
- --clean generated events: Run answers_cleaning.py
+<p>This script will take as input a CSV file containing a list of examples with the desired event relation, and output a new CSV file containing the original data as well as the newly generated sentences.</p>
+
+<h2>Event Triggers Generation</h2>
+<p>To generate event triggers for a given set of sentences, you can use the following command:</p>
+
+<pre><code>python Event_triggers_generation_by_GPT-3.py</code></pre>
+
+<p>This script will generate the desired event triggers for the given sentences.</p>
+
+<h2>Cleaning Generated Events</h2>
+<p>To clean up the generated event triggers, you can use the following command:</p>
+
+<pre><code>python answers_cleaning.py</code></pre>
+
+<p>This script will clean the generated events from unwanted text using regular expressions output a new CSV file containing the cleaned data.</p>
+
+
+
+
+
 
 # Data
 
